@@ -29,4 +29,12 @@ public class EnemyArrowMove : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PlayerShield"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }

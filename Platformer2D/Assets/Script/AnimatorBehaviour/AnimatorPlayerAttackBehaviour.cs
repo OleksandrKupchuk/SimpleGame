@@ -7,7 +7,6 @@ public class AnimatorPlayerAttackBehaviour : StateMachineBehaviour
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //Player.PlayerInstance.PlayerAttack = true;
         animator.GetComponent<Player>().PlayerAttack = true;
         animator.SetFloat("animatorPlayerWalk", 0);
 
@@ -30,7 +29,6 @@ public class AnimatorPlayerAttackBehaviour : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.GetComponent<Player>().PlayerAttack = false;
-        //Player.PlayerInstance.PlayerAttack = false;
         animator.ResetTrigger("animatorPlayerAttack");
         animator.GetComponent<Player>().PlayerSwordCollider.enabled = false;
     }

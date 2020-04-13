@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -9,6 +10,12 @@ using UnityEngine;
 [RequireComponent(typeof(CircleCollider2D))]
 public class EnemyBase : CharacterBase
 {
+    protected Canvas canvasHealth;
+    [SerializeField] Image imageHealthBar;
+    private float fillAmountHealth;
+
+    [SerializeField] GameObject coinPrefab;
+
     public IStateEnemy currentState;
 
     protected float timeAttack;
@@ -87,27 +94,52 @@ public class EnemyBase : CharacterBase
     {
         base.Start();
         enemyAnimator = GetComponent<Animator>();
+
+        canvasHealth = transform.GetComponentInChildren<Canvas>();
     }
 
-    public void Update()
+    public virtual void Update()
     {
-        
+        imageHealthBar.fillAmount = CurrentFillAmountHealth(fillAmountHealth);
+    }
+
+    protected float CurrentFillAmountHealth(float currentFillamount)
+    {
+        //currentFillamount = fillAmountHealth;
+        return currentFillamount = health / maxHealth;
     }
 
     public void TakeDamage()
     {
         if (!EnemyDie)
         {
+            if (!canvasHealth.isActiveAndEnabled)
+            {
+                canvasHealth.enabled = true;
+            }
+
             enemyAnimator.SetTrigger("animatorEnemyHit");
             health -= takeDamage;
 
-            if (health <= 0)
+            if (EnemyDie)
             {
-                enemyAnimator.SetTrigger("animatorEnemyDie");
-                Destroy(gameObject, 1.5f);
-                Player.PlayerInstance.AddIndicatorForPlayer(experienceForTheEnemy);
+                Die();
             }
         }
+    }
+
+    public void Die()
+    {
+        enemyAnimator.SetTrigger("animatorEnemyDie");
+        Player.PlayerInstance.AddIndicatorForPlayer(experienceForTheEnemy);
+
+        SpawnItems();
+        Destroy(gameObject, 1.5f);
+    }
+
+    public void SpawnItems()
+    {
+        Instantiate(coinPrefab, new Vector3(transform.position.x, transform.position.y + 0.7f, transform.position.z), Quaternion.identity);
     }
 
     public void EnemySwordEnabled()
@@ -125,7 +157,11 @@ public class EnemyBase : CharacterBase
         //Debug.Log("Flip");
         facingRight = !facingRight;
         transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
-        //transform.Rotate(0f, 180f, 0f);
+
+        if (facingRight || !facingRight)
+        {
+            canvasHealth.transform.localScale = new Vector3(canvasHealth.transform.localScale.x * -1, canvasHealth.transform.localScale.y, canvasHealth.transform.localScale.z);
+        }
     }
 
     public void Walk()

@@ -4,43 +4,42 @@ using UnityEngine;
 
 public class IgnoreCollision : MonoBehaviour
 {
-    //[SerializeField] GameObject playerColliderEdge;
-    //Collider2D playerEdge;
-    //[SerializeField] Collider2D[] secondIgnoreColliders;
+    [SerializeField] Collider2D enemySign;
 
-    //Collider2D[] enemyColliders;
-    //[SerializeField] GameObject enemy;
+    Collider2D playerSwordCollider;
+    GameObject playerSword;
 
-    //Collider2D[] playerColliders;
-    //[SerializeField] GameObject player;
+    Collider2D[] enemyColliders;
+    [SerializeField] GameObject enemy;
+
+    Collider2D[] playerColliders;
+    GameObject player;
 
     void Start()
     {
-        //playerEdge = playerColliderEdge.GetComponentInChildren<EdgeCollider2D>();
+        playerSword = GameObject.FindGameObjectWithTag("PlayerSword");
+        player = GameObject.FindGameObjectWithTag("Player");
 
-        //enemyColliders = enemy.GetComponents<Collider2D>();
+        playerSwordCollider = playerSword.GetComponent<EdgeCollider2D>();
 
-        //playerColliders = player.GetComponents<Collider2D>();
+        enemyColliders = enemy.GetComponents<Collider2D>();
 
-        //Physics.IgnoreCollision(playerEdge, secondIgnoreColliders, true);
+        playerColliders = player.GetComponents<Collider2D>();
 
-        //for (int i = 0; i < secondIgnoreColliders.Length; i++)
-        //{
-        //    Physics2D.IgnoreCollision(secondIgnoreColliders[i], playerEdge, true);
-        //}
+        Physics2D.IgnoreCollision(playerSwordCollider, enemySign, true);
     }
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Player"))
-    //    {
-    //        for (int i = 0; i < enemyColliders.Length; i++)
-    //        {
-    //            for (int j = 0; j < playerColliders.Length; j++)
-    //            {
-    //                Physics2D.IgnoreCollision(enemyColliders[i], playerColliders[j]);
-    //            }
-    //        }
-    //    }
-    //}
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            for (int countEnemyCollider = 0; countEnemyCollider < enemyColliders.Length; countEnemyCollider++)
+            {
+                for (int countPlayerCollider = 0; countPlayerCollider < playerColliders.Length; countPlayerCollider++)
+                {
+                    Physics2D.IgnoreCollision(enemyColliders[countEnemyCollider], playerColliders[countPlayerCollider]);
+                }
+            }
+        }
+    }
 }

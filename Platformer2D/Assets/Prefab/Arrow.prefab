@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b5d7b69cc40fee4c94a60d5130bd8d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedArrow: 5
+  speedArrow: 7
   arrowRigidbody2d: {fileID: 6072216799005639718}
 --- !u!61 &5247157106344499719
 BoxCollider2D:

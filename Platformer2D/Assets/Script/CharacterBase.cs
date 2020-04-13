@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class CharacterBase : MonoBehaviour
 {
     [SerializeField] public float health;
+    [SerializeField] public float maxHealth;
     [SerializeField] public int damage;
     [SerializeField] public int speed;
     public bool facingRight;

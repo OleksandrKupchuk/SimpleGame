@@ -12,9 +12,14 @@ public class EnemySwordman : EnemyBase
     }
 
     // Update is called once per frame
-    public new void Update()
+    public override void Update()
     {
-        currentState.Execute();
+        base.Update();
+
+        if (!EnemyDie)
+        {
+            currentState.Execute();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

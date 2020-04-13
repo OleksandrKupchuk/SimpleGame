@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1687999912}
   - component: {fileID: 1687999913}
   - component: {fileID: 6928956236131309076}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Sign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 9.10232, y: 5.473319}
+  m_Offset: {x: 9.10232, y: 4.2000704}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -56,7 +56,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 25.065907, y: 9.307608}
+  m_Size: {x: 25.065907, y: 6.7611103}
   m_EdgeRadius: 0
 --- !u!114 &6928956236131309076
 MonoBehaviour:
@@ -255,10 +255,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45cb1200f95873840a670bcee645148e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
+  health: 15
   damage: 4
   speed: 2
+  facingRight: 0
+  delayAttack: 0
   enemyRangeAttack: 1.5
+  experienceForTheEnemy: 0
   leftEdge: {fileID: 0}
   rightEdge: {fileID: 0}
   enemySword: {fileID: 2961335894259124018}
@@ -390,12 +393,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec885d85b29c604187c8b9c9066fb0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstIgnoreColliders:
-  - {fileID: 1687999913}
-  - {fileID: 6005750597600984098}
-  secondIgnoreColliders:
-  - {fileID: 0}
-  - {fileID: 0}
+  enemySign: {fileID: 1687999913}
+  enemy: {fileID: 1000013617770644}
+  player: {fileID: 5984063916931141361, guid: 5cf11adf059070e46aad375c38a2c534, type: 3}
 --- !u!1 &1000010251440012
 GameObject:
   m_ObjectHideFlags: 0

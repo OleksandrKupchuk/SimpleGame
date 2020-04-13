@@ -8,6 +8,8 @@ TagManager:
   - PlayerSword
   - EnemySword
   - EnemyArrow
+  - PlayerShield
+  - Trip
   layers:
   - Default
   - TransparentFX

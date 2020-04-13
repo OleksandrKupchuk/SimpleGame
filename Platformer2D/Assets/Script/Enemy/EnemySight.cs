@@ -12,6 +12,11 @@ public class EnemySight : MonoBehaviour
         {
             enemySwordman.EnemyTarget = collision.gameObject;
         }
+
+        if (collision.CompareTag("PlayerSword"))
+        {
+
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

@@ -13,10 +13,16 @@ public class EnemyArcher : EnemyBase
         ChangeStateEnemy(new IdleState());
     }
 
-    public new void Update()
+    public override void Update()
     {
+        base.Update();
+
+        //Debug.Log("FacingR = " + facingRight);
         //ChangeState(currentState);
-        StateEnemy();
+        if (!EnemyDie)
+        {
+            StateEnemy();
+        }
     }
 
     private void StateEnemy()
@@ -154,18 +160,19 @@ public class EnemyArcher : EnemyBase
         }
     }
 
+    //method is responsible for creating and directing arrow
     public void FireArrow()
     {
         if (facingRight)
         {
-            enemyAnimator.SetTrigger("animatorEnemyAttack");
-            GameObject arrow = Instantiate(arrowPrefab, startPositionArrow.position, Quaternion.identity);
-            arrow.GetComponent<EnemyArrowMove>().ArrowInitialization(Vector2.right);
+            //enemyAnimator.SetTrigger("animatorEnemyAttack");
+            GameObject arrow = Instantiate(arrowPrefab, startPositionArrow.position, Quaternion.identity); //create arrow
+            arrow.GetComponent<EnemyArrowMove>().ArrowInitialization(Vector2.right); //convey the direction vector
         }
 
         else
         {
-            GameObject arrow = Instantiate(arrowPrefab, startPositionArrow.position, Quaternion.Euler(new Vector3(0f, 180f, 0f)));
+            GameObject arrow = Instantiate(arrowPrefab, startPositionArrow.position, Quaternion.Euler(new Vector3(0f, 180f, 0f))); //set 180 on Y when the enemy looks to the left
             arrow.GetComponent<EnemyArrowMove>().ArrowInitialization(Vector2.left);
         }
     }
