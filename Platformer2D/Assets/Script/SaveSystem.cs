@@ -6,17 +6,30 @@ using UnityEngine;
 
 public static class SaveSystem
 {
-    public static void SavePlayer(Player player)
+    //public static void SavePlayer(Player player)
+    //{
+    //    BinaryFormatter formatter = new BinaryFormatter();
+
+    //    string pathSave = Application.persistentDataPath + "/player.date";
+
+    //    FileStream stream = new FileStream(pathSave, FileMode.Create);
+
+    //    PlayerData data = new PlayerData(player);
+
+    //    formatter.Serialize(stream, data);
+
+    //    stream.Close();
+    //}
+
+    public static void SavePlayer(Player player, GameManager gameManager)
     {
         BinaryFormatter formatter = new BinaryFormatter();
 
         string pathSave = Application.persistentDataPath + "/player.date";
 
-        //string pathSave = "D:/Project/SavingGame/player.date";
-
         FileStream stream = new FileStream(pathSave, FileMode.Create);
 
-        PlayerData data = new PlayerData(player);
+        PlayerData data = new PlayerData(player, gameManager);
 
         formatter.Serialize(stream, data);
 
@@ -26,8 +39,6 @@ public static class SaveSystem
     public static PlayerData LoadPlayer()
     {
         string pathSave = Application.persistentDataPath + "/player.date";
-
-        //string pathSave = "D:/Project/SavingGame/player.date";
 
         if (File.Exists(pathSave))
         {

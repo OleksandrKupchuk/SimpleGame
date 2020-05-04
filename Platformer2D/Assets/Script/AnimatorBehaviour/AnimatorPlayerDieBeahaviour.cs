@@ -8,6 +8,7 @@ public class AnimatorPlayerDieBeahaviour : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Player.PlayerInstance.PlayerDie = true;
+        SoundManager.soundManagerInstance.PlaySound("PlayerDeath");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -19,7 +20,7 @@ public class AnimatorPlayerDieBeahaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        SoundManager.soundManagerInstance.StopPlaySound("PlayerDeath");
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

@@ -37,7 +37,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private int countCoin;
+    //public int CountCoin { get => countCoin; set => countCoin = value; }
+
+    public int countCoin;
 
     public int CountCoin
     {
@@ -49,7 +51,7 @@ public class GameManager : MonoBehaviour
         set
         {
             countCoin = value;
-            countCoinText.text = "Coin : " + countCoin;
+            //countCoinText.text = "Coin : " + countCoin;
         }
     }
     // Start is called before the first frame update
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Debug.Log("coin = " + CountCoin);
+        //Debug.Log("coin = " + countCoin);
     }
 }

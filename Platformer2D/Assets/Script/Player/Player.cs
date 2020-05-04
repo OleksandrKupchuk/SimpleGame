@@ -6,25 +6,29 @@ using UnityEngine.UI;
 
 public class Player : CharacterBase
 {
+    [SerializeField] SoundManager soundManager;
+
+    private IUsable usable;
+    //[SerializeField] InventoryUI invenroryUI;
+
     [SerializeField] GameObject shieldPrefab;
     [SerializeField] Transform shieldPointStart;
 
     public bool shieldDie = false;
 
-    public bool PlayerReceiveDamage { get; set; }
-
     [SerializeField] List<string> listDamageSourceForPlayer;
 
-    [SerializeField] public int playerCurrentLevel = 0;
-
-    [SerializeField] int currentExperience;
+    [SerializeField] public int playerCurrentLevel;
 
     public bool PlayerBlink { get; set; }
-    [SerializeField] float delayPlayerBlink;
+    [SerializeField] float playerDelayBlink;
 
-    public int CurrentExperience
+    //player experience;
+    [SerializeField] private int playerCurrentExperience;
+
+    public int PlayerCurrentExperience
     {
-        get => currentExperience; set => currentExperience = value;
+        get => playerCurrentExperience; set => playerCurrentExperience = value;
     }
 
     [SerializeField] int maxExperienceInCurrentLevel;
@@ -77,10 +81,6 @@ public class Player : CharacterBase
             return interestHealthForNextLevel;
         }
     }
-
-    int experienceForLevel;
-
-    private int experienceRemainder;
 
     [SerializeField] int takeExperience;
     public bool PlayerDie { get; set; }
@@ -154,6 +154,8 @@ public class Player : CharacterBase
 
     private float horizontal;
 
+    public float Horizontal { get => horizontal;}
+
     public Animator PlayerAnimator { get; set; }
 
     [SerializeField] Transform[] isGround;
@@ -164,7 +166,7 @@ public class Player : CharacterBase
 
     public bool PlayerOnGround { get; set; }
     public Rigidbody2D PlayerRigidbody { get; set; }
-    
+
     [SerializeField] SpriteRenderer playerSpriteRenderer;
 
     public override void Start()
@@ -179,10 +181,13 @@ public class Player : CharacterBase
         {
             PlayerHandleInput();
         }
+
+        //Debug.Log("horiz = " + Player.PlayerInstance.Horizontal);
+        Debug.Log("ground = " + PlayerOnGround);
         //Debug.Log("Right = " + facingRight);
-        Debug.Log("Block = " + PlayerBlock);
+        //Debug.Log("Block = " + PlayerBlock);
         //Debug.Log("is falling = " + IsFalling);
-        //Debug.Log("rigidbody = " + Player.PlayerInstance.PlayerRigidbody.velocity.y);
+        //Debug.Log("rigidbody = " + PlayerRigidbody.velocity.y);
         //Debug.Log("onGround = " + Player.PlayerInstance.PlayerOnGround);
         //Debug.Log("Jump = " + Player.PlayerInstance.PlayerJump);
     }
@@ -225,28 +230,40 @@ public class Player : CharacterBase
             //Jump();
         }
 
-        PlayerAnimator.SetFloat("animatorPlayerWalk", Mathf.Abs(phorizontal));
+        if (PlayerOnGround)
+        {
+            PlayerAnimator.SetFloat("animatorPlayerWalk", Mathf.Abs(phorizontal));
+        }
+
+        if (!PlayerOnGround)
+        {
+            PlayerAnimator.SetFloat("animatorPlayerWalk", 0);
+        }
     }
     
     //method responsible for input player
     private void PlayerHandleInput()
     {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            PlayerInteractionWithTheSabject();
+        }
+
         if(Input.GetKeyDown(KeyCode.Q))
         {
             PlayerBlink = true;
             StartCoroutine(PlayerBlinkMethod());
-
-            //Instantiate(shieldPrefab, shieldPoint.transform.position, Quaternion.identity);
         }
 
         if (Input.GetButtonDown("Fire2"))
         {
+            TakeDamage();
             if (PlayerOnGround && !PlayerJump)
             {
                 //TakeDamage();
-                //AddIndicatorForPlayer(takeExperience);
-                PlayerAnimator.SetBool("animatorPlayerShield", true);
+                AddIndicatorForPlayer(takeExperience);
 
+                PlayerAnimator.SetBool("animatorPlayerShield", true);
                 SpawnShield();
             }
 
@@ -260,14 +277,14 @@ public class Player : CharacterBase
             }
         }
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1"))//&& !invenroryUI.IsElemtntUI
         {
             PlayerAnimator.SetTrigger("animatorPlayerAttack");
         }
 
         if (Input.GetButtonDown("Jump"))
         {
-            Debug.Log("Jump");
+            //Debug.Log("Jump");
             //PlayerJump = true;
             //Jump();
             PlayerAnimator.SetTrigger("animatorPlayerJumpUp");
@@ -282,6 +299,7 @@ public class Player : CharacterBase
 
     private void Move(float mhorizontal)
     {
+        //SoundManager.soundManagerInstance.PlaySound("PlayerRun");
         PlayerRigidbody.velocity = new Vector2(speed * mhorizontal, PlayerRigidbody.velocity.y);
     }
 
@@ -353,7 +371,7 @@ public class Player : CharacterBase
                 health -= 5;
 
                 StartCoroutine(PlayerBlinkMethod());
-                yield return new WaitForSeconds(delayPlayerBlink);
+                yield return new WaitForSeconds(playerDelayBlink);
 
                 PlayerBlink = false;
 
@@ -381,6 +399,7 @@ public class Player : CharacterBase
         if (collision.gameObject.CompareTag("Coin"))
         {
             GameManager.GameManagerInstance.CountCoin++;
+            SoundManager.soundManagerInstance.PlaySound("PlayerPickUpCoin");
             Destroy(collision.gameObject);
         }
     }
@@ -390,6 +409,27 @@ public class Player : CharacterBase
         if (listDamageSourceForPlayer.Contains(collision.tag))
         {
             StartCoroutine(TakeDamage());
+        }
+
+        if (collision.gameObject.CompareTag("Chest"))
+        {
+            usable = collision.GetComponent<IUsable>();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Chest"))
+        {
+            usable = null;
+        }
+    }
+
+    public void PlayerInteractionWithTheSabject()
+    {
+        if(usable != null)
+        {
+            usable.Interaction();
         }
     }
 
@@ -417,23 +457,29 @@ public class Player : CharacterBase
     /// <param name="experience"></param>
     public void AddIndicatorForPlayer(int experience)
     {
-        CurrentExperience += experience;
+        PlayerCurrentExperience += experience;
 
-        if(CurrentExperience >= MaxExperienceInCurrentLevel)
+        if(PlayerCurrentExperience >= MaxExperienceInCurrentLevel)
         {
-            int countUpLevel = (CurrentExperience / MaxExperienceInCurrentLevel);
+            int countUpLevel = (PlayerCurrentExperience / MaxExperienceInCurrentLevel);
             for(int countLevel = 0; countLevel < countUpLevel; countLevel++)
             {
-                CurrentExperience = Mathf.Abs(CurrentExperience - MaxExperienceInCurrentLevel);
+                PlayerCurrentExperience = Mathf.Abs(PlayerCurrentExperience - MaxExperienceInCurrentLevel);
 
                 MaxExperienceInCurrentLevel += InterestExperienceForNextLevel; ////add maxexperience on current level on a certain percentage
 
-                playerCurrentLevel++;
+                PlayerLevelUp();
 
                 maxHealth += InterestHealthForNextLevel; //add health on a certain percentage
 
                 health = maxHealth;
             }
         }
+    }
+
+    private void PlayerLevelUp()
+    {
+        SoundManager.soundManagerInstance.PlaySound("PlayerLevelUp");
+        playerCurrentLevel++;
     }
 }

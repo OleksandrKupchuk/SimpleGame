@@ -7,6 +7,7 @@ public class AnimatorEnemyTakeDamageBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        SoundManager.soundManagerInstance.PlaySound("PlayerHit");
         Player.PlayerInstance.PlayerHit = true;
         if (Player.PlayerInstance.PlayerHit)
         {
@@ -25,6 +26,7 @@ public class AnimatorEnemyTakeDamageBehaviour : StateMachineBehaviour
     {
         Player.PlayerInstance.PlayerAnimator.ResetTrigger("animatorPlayerTakeDamage");
         Player.PlayerInstance.PlayerHit = false;
+        SoundManager.soundManagerInstance.StopPlaySound("PlayerHit");
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

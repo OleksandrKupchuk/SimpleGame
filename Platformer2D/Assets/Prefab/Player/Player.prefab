@@ -160,6 +160,8 @@ GameObject:
   - component: {fileID: 5984063916931141363}
   - component: {fileID: 5984063916931141362}
   - component: {fileID: 5984063916931141368}
+  - component: {fileID: 478508571}
+  - component: {fileID: 192725448}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -247,10 +249,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d2c4ab59a0b354cac62f6395c735df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 40
+  health: 10
+  maxHealth: 10
   damage: 5
   speed: 5
   facingRight: 1
+  soundManager: {fileID: 0}
   shieldPrefab: {fileID: 3171879319365543291, guid: a2728f4343f969a47bda519d1ee2867d,
     type: 3}
   shieldPointStart: {fileID: 1362683983}
@@ -259,14 +263,13 @@ MonoBehaviour:
   - EnemySword
   - EnemyArrow
   - Trip
-  playerCurrentLevel: 0
-  currentExperience: 9
-  delayPlayerBlink: 3
+  playerCurrentLevel: 1
+  playerDelayBlink: 1
+  playerCurrentExperience: 0
   maxExperienceInCurrentLevel: 10
   interestExperienceForNextLevel: 0
   interestHealthForNextLevel: 0
   takeExperience: 17
-  playerMaxHealth: 50
   playerAirControl: 1
   playerSwordCollider: {fileID: 5984063916075243771}
   isGround:
@@ -337,7 +340,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 2
   m_Material: {fileID: 6200000, guid: 48a47248f59f99f49a0164c047309dfd, type: 2}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -360,3 +363,37 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &478508571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5984063916931141361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69cd19fad93f5b64991498d80bed165e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFull: 00000000
+  slots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &192725448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5984063916931141361}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1acff3c324dd6ab4bbaf13798f2e180d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 4
+  height: 1
+  panel: {fileID: 0}
+  slot: {fileID: 4229283579005480401, guid: b775bd6509cfed948b4029b20dacdcb9, type: 3}

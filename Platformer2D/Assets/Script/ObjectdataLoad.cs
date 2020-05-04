@@ -5,10 +5,18 @@ using UnityEngine;
 public class ObjectdataLoad : MonoBehaviour
 {
     [SerializeField] Player player;
+    [SerializeField] GameManager gameManager;
+
+    //public void SavePlayer()
+    //{
+    //    SaveSystem.SavePlayer(Player.PlayerInstance);
+
+    //    Debug.Log("Save");
+    //}
 
     public void SavePlayer()
     {
-        SaveSystem.SavePlayer(Player.PlayerInstance);
+        SaveSystem.SavePlayer(Player.PlayerInstance, GameManager.GameManagerInstance);
 
         Debug.Log("Save");
     }
@@ -21,14 +29,29 @@ public class ObjectdataLoad : MonoBehaviour
 
         player.PlayerMaxHealth = data.playerMaxHealth;
 
-        player.CurrentExperience = data.playerExperience;
+        player.PlayerCurrentExperience = data.playerExperience;
 
-        //Player.PlayerInstance.health = data.playerHealth;
+        player.playerCurrentLevel = data.playerLevel;
 
-        //Player.PlayerInstance.PlayerMaxHealth = data.playerMaxHealth;
-
-        //Player.PlayerInstance.CurrentExperience = data.playerExperience;
+        gameManager.countCoin = data.playerCoin;
 
         Debug.Log("Load");
+    }
+
+    public void ResetPlayerData()
+    {
+        PlayerData data = SaveSystem.LoadPlayer();
+
+        player.health = 20;
+
+        player.PlayerMaxHealth = 20;
+
+        player.PlayerCurrentExperience = 0;
+
+        player.playerCurrentLevel = 1;
+
+        gameManager.countCoin = 0;
+
+        Debug.Log("ResetPlayerData");
     }
 }

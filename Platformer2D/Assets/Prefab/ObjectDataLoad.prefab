@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5984063916931141367, guid: 5cf11adf059070e46aad375c38a2c534, type: 3}
+  gameManager: {fileID: 5921134264990481896, guid: a198fe1b46a01f14ea4d6157c61dac44,
+    type: 3}
