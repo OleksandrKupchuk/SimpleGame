@@ -74,7 +74,7 @@ MonoBehaviour:
     audioSource: {fileID: 0}
   - nameAudio: PlayerRun
     clip: {fileID: 8300000, guid: df7d19955e655284c85a05450b0826aa, type: 3}
-    volumeAudio: 0.7
+    volumeAudio: 0
     pitchAudio: 1.5
     loopSound: 1
     playOnAwakeSound: 0

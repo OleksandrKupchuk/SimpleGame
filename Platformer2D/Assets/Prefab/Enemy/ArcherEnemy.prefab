@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 599085750}
   - component: {fileID: 599085749}
   m_Layer: 16
-  m_Name: Image
+  m_Name: ImageHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -358,7 +358,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6396063583692038106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.42, y: 4.53, z: -24.132812}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6396063584607781162}
@@ -379,7 +379,7 @@ GameObject:
   m_Layer: 16
   m_Name: LeftEedge
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -391,7 +391,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6396063583830924608}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.2, y: -5.45, z: 0}
+  m_LocalPosition: {x: -5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6396063583692038107}
@@ -530,7 +530,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6396063584607781161}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.02, y: -4.59, z: 24.132812}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6396063583879833255}
@@ -602,20 +602,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 11
+  maxHealth: 0
   damage: 3
   speed: 3
   facingRight: 0
+  imageHealthBar: {fileID: 599085749}
+  gameObjectHealthBar: {fileID: 147039365}
   coinPrefab: {fileID: 3203510900274205205, guid: 792cb7e55c29a204fad1b6f37d2b8f60,
     type: 3}
   delayAttack: 1
   enemyRangeAttack: 7
-  experienceForTheEnemy: 4
+  experienceForTheEnemy: 3
   leftEdge: {fileID: 6396063583830924609}
   rightEdge: {fileID: 6396063584654285595}
   enemySword: {fileID: 0}
   enemyRigidbody: {fileID: 6396063584607781167}
   enemyAnimator: {fileID: 6396063584607781166}
-  takeDamage: 3
+  takeDamage: 5
   arrowPrefab: {fileID: 2078422602448101665, guid: 10be35d7700c66546966ab9acbbc566f,
     type: 3}
   startPositionArrow: {fileID: 6396063583879833255}
@@ -741,7 +744,7 @@ GameObject:
   m_Layer: 16
   m_Name: RightEdge
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -753,7 +756,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6396063584654285594}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.35, y: -5.45, z: 0}
+  m_LocalPosition: {x: 5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6396063583692038107}

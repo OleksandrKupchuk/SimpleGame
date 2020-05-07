@@ -183,7 +183,7 @@ public class Player : CharacterBase
         }
 
         //Debug.Log("horiz = " + Player.PlayerInstance.Horizontal);
-        Debug.Log("ground = " + PlayerOnGround);
+        //Debug.Log("ground = " + PlayerOnGround);
         //Debug.Log("Right = " + facingRight);
         //Debug.Log("Block = " + PlayerBlock);
         //Debug.Log("is falling = " + IsFalling);

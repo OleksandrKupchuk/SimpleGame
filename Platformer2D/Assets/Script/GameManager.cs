@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
 {
     static GameManager gameManagerInstance;
 
-    [SerializeField] Text countCoinText;
+    //[SerializeField] GameObject gameObjectCanvas;
+    private Text countCoinText;
 
     public static GameManager GameManagerInstance
     {
@@ -51,13 +52,13 @@ public class GameManager : MonoBehaviour
         set
         {
             countCoin = value;
-            //countCoinText.text = "Coin : " + countCoin;
+            countCoinText.text = "Coin : " + countCoin;
         }
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+        countCoinText = GameObject.Find("TextCoin").GetComponent<Text>();
     }
 
     // Update is called once per frame

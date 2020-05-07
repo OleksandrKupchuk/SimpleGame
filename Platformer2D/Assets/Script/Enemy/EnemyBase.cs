@@ -12,6 +12,7 @@ public class EnemyBase : CharacterBase
 {
     protected Canvas canvasHealth;
     [SerializeField] Image imageHealthBar;
+    [SerializeField] GameObject gameObjectHealthBar;
     private float fillAmountHealth;
 
     [SerializeField] GameObject coinPrefab;
@@ -123,6 +124,7 @@ public class EnemyBase : CharacterBase
 
             if (EnemyDie)
             {
+                gameObjectHealthBar.SetActive(false);
                 Die();
             }
         }
@@ -234,7 +236,7 @@ public class EnemyBase : CharacterBase
     {
         timeAttack += Time.deltaTime;
 
-        //enemyAnimator.SetFloat("animatorEnemyRun", 0);
+        enemyAnimator.SetFloat("animatorEnemyRun", 0);
 
         if (timeAttack >= delayAttack)
         {

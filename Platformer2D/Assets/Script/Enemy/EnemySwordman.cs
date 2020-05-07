@@ -26,7 +26,7 @@ public class EnemySwordman : EnemyBase
     {
         if (collision.CompareTag("PlayerSword"))
         {
-            Debug.Log("Take");
+            //Debug.Log("Take");
             TakeDamage();
             EnemyTarget = collision.gameObject;
         }
