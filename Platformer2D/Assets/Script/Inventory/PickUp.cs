@@ -16,15 +16,11 @@ public class PickUp : MonoBehaviour
         //inv = GameObject.FindGameObjectWithTag("Player").GetComponent<Inv>();
     }
 
-    void Update()
-    {
-        
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("name = " + gameObject.name);
             for (int numberFreeSlot = 0; numberFreeSlot < inventory.slots.Length; numberFreeSlot++)
             {
                 if (inventory.isFull[numberFreeSlot] == false)
@@ -35,6 +31,7 @@ public class PickUp : MonoBehaviour
                     //inv.Rewdraw(imageIcon, numberFreeSlot);
                     SoundManager.soundManagerInstance.PlaySound("PlayerPickUp");
                     Instantiate(itemButton, inventory.slots[numberFreeSlot].transform, false);
+
                     Destroy(gameObject);
 
                     break;

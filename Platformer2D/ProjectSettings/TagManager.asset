@@ -12,6 +12,9 @@ TagManager:
   - Trip
   - Inventory
   - Chest
+  - Potion
+  - Box
+  - PressPlatform
   layers:
   - Default
   - TransparentFX
@@ -31,8 +34,8 @@ TagManager:
   - Things
   - Enemy
   - Potion
-  - 
-  - 
+  - PressPlatform
+  - Bridge
   - 
   - 
   - 

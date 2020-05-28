@@ -24,12 +24,12 @@ public class Chest : MonoBehaviour, IUsable
     public IEnumerator SpawnCoins(int maxAmountCoin)
     {
         randomAmountCoin = Random.Range(1, maxAmountCoin);// amount coin from 1 to maxAmountCoin, if int[number1, number2), if float[number1, number2]
-        Debug.Log("randomAmountCoin = " + randomAmountCoin);
+        //Debug.Log("randomAmountCoin = " + randomAmountCoin);
 
         for (int countSpawnCoin = 0; countSpawnCoin < randomAmountCoin; countSpawnCoin++)
         {
             forceForSpawnCoinX = Random.Range(forceMinForSpawnCoinX, forceMaxForSpawnCoinX);
-            Debug.Log("forceX = " + forceForSpawnCoinX);
+            //Debug.Log("forceX = " + forceForSpawnCoinX);
             coinObject = Instantiate(coinPrefab, transform.position, transform.rotation);
             cointRigidbody = coinObject.GetComponent<Rigidbody2D>();
             cointRigidbody.AddForce(new Vector2(forceForSpawnCoinX, forceForSpawnCoinY));

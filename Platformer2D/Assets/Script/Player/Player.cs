@@ -3,13 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : CharacterBase
 {
-    [SerializeField] SoundManager soundManager;
-
     private IUsable usable;
-    //[SerializeField] InventoryUI invenroryUI;
+    [SerializeField] InventoryUI invenroryUI;
 
     [SerializeField] GameObject shieldPrefab;
     [SerializeField] Transform shieldPointStart;
@@ -123,6 +122,9 @@ public class Player : CharacterBase
     }
         
     public bool PlayerJump { get; set; }
+    private float bufferingJumpPressRemember;
+    [SerializeField] private float bufferingJumpPressRememberTime;
+
 
     static Player playerInstance;
 
@@ -130,7 +132,7 @@ public class Player : CharacterBase
     {
         get
         {
-            return PlayerRigidbody.velocity.y < 0;
+            return PlayerRigidbody.velocity.y < -0.01;
         }
     }
 
@@ -158,13 +160,14 @@ public class Player : CharacterBase
 
     public Animator PlayerAnimator { get; set; }
 
-    [SerializeField] Transform[] isGround;
-    [SerializeField] float checkRadius;
-    [SerializeField] LayerMask layerMask;
+    [SerializeField] private float heightBoxCast;
+    [SerializeField] private bool playerOnGround;
+    [SerializeField] private BoxCollider2D playerBoxCollider2d;
+    [SerializeField] private LayerMask layerMask;
 
     [SerializeField] int jumpForce;
 
-    public bool PlayerOnGround { get; set; }
+    public bool PlayerOnGround { get; private set; }
     public Rigidbody2D PlayerRigidbody { get; set; }
 
     [SerializeField] SpriteRenderer playerSpriteRenderer;
@@ -180,22 +183,52 @@ public class Player : CharacterBase
         if (!PlayerDie && !PlayerHit)
         {
             PlayerHandleInput();
+
+            //PlayerMovement(horizontal);
         }
+
+        bufferingJumpPressRemember -= Time.deltaTime;
 
         //Debug.Log("horiz = " + Player.PlayerInstance.Horizontal);
         //Debug.Log("ground = " + PlayerOnGround);
+        //Debug.Log("ground = " + playerOnGround);
+        //Debug.Log("numberContact = " + numberContactsWithGround);
         //Debug.Log("Right = " + facingRight);
         //Debug.Log("Block = " + PlayerBlock);
         //Debug.Log("is falling = " + IsFalling);
         //Debug.Log("rigidbody = " + PlayerRigidbody.velocity.y);
         //Debug.Log("onGround = " + Player.PlayerInstance.PlayerOnGround);
-        //Debug.Log("Jump = " + Player.PlayerInstance.PlayerJump);
+        //Debug.Log("Jump = " + PlayerInstance.PlayerJump);
     }
 
     private void FixedUpdate()
     {
         if (!PlayerDie && !PlayerHit)
         {
+            #region Перевірка зіткнення із землею через BoxCast
+            RaycastHit2D playerOnGround = Physics2D.BoxCast(playerBoxCollider2d.bounds.center, playerBoxCollider2d.bounds.size, 0f, Vector2.down, heightBoxCast, layerMask);
+
+            Color colorLine;
+            if(playerOnGround.collider != null)
+            {
+                colorLine = Color.blue;
+            }
+
+            else
+            {
+                colorLine = Color.red;
+            }
+
+            Debug.DrawRay(playerBoxCollider2d.bounds.center + new Vector3(playerBoxCollider2d.bounds.extents.x, 0), Vector2.down * (playerBoxCollider2d.bounds.extents.y + heightBoxCast), colorLine);
+            //Debug.DrawRay(playerBoxCollider2d.bounds.center + new Vector3(playerBoxCollider2d.bounds.extents.x, 0), Vector2.down * (playerBoxCollider2d.bounds.extents.y + distacneBoxCast), colorLine);
+            Debug.DrawRay(playerBoxCollider2d.bounds.center - new Vector3(playerBoxCollider2d.bounds.extents.x, 0), Vector2.down * (playerBoxCollider2d.bounds.extents.y + heightBoxCast), colorLine);
+            Debug.DrawRay(playerBoxCollider2d.bounds.center - new Vector3(playerBoxCollider2d.bounds.extents.x, playerBoxCollider2d.bounds.extents.y + heightBoxCast), Vector2.right * (playerBoxCollider2d.bounds.size.x), colorLine);
+
+            #endregion
+
+            //check player on ground
+            //playerOnGround = Physics2D.OverlapCircle(playerGround.position, checkRadius, layerMask);
+
             if (!PlayerBlock)
             {
                 horizontal = Input.GetAxisRaw("Horizontal");
@@ -203,9 +236,11 @@ public class Player : CharacterBase
 
             PlayerMovement(horizontal);
 
+            //PlayerHandleInput();
+
             Flip(horizontal);
 
-            PlayerOnGround = OnGround();
+            PlayerOnGround = playerOnGround;
 
             CheckLayer();
         }
@@ -224,20 +259,37 @@ public class Player : CharacterBase
             Move(phorizontal);
         }
 
-        if (PlayerJump && PlayerRigidbody.velocity.y == 0 && !IsFalling)
+        //if (PlayerJump && PlayerOnGround && PlayerRigidbody.velocity.y == 0)
+        //{
+        //    Jump();
+        //}
+
+        #region варіації перевірки стрибка
+        //if (PlayerJump && PlayerRigidbody.velocity.y == 0)
+        //{
+        //    Jump();
+        //}
+
+        if (PlayerOnGround && (bufferingJumpPressRemember > 0))
         {
-            PlayerRigidbody.AddForce(new Vector2(0, jumpForce));
-            //Jump();
+            Jump();
         }
+
+        //if (PlayerJump && PlayerOnGround)
+        //{
+        //    Jump();
+        //}
+        #endregion
 
         if (PlayerOnGround)
         {
             PlayerAnimator.SetFloat("animatorPlayerWalk", Mathf.Abs(phorizontal));
         }
 
-        if (!PlayerOnGround)
+        if (!PlayerOnGround && !IsFalling)
         {
             PlayerAnimator.SetFloat("animatorPlayerWalk", 0);
+            PlayerAnimator.SetTrigger("animatorPlayerJumpUp");
         }
     }
     
@@ -284,11 +336,15 @@ public class Player : CharacterBase
 
         if (Input.GetButtonDown("Jump"))
         {
-            //Debug.Log("Jump");
-            //PlayerJump = true;
-            //Jump();
+            bufferingJumpPressRemember = bufferingJumpPressRememberTime;
             PlayerAnimator.SetTrigger("animatorPlayerJumpUp");
+            //Jump();
         }
+
+        //if((bufferingJumpPressRemember >  0) && PlayerOnGround)
+        //{
+        //    Jump();
+        //}
 
         //if (Input.GetButtonDown("Jump") && !IsFalling && PlayerRigidbody.velocity.y == 0 && PlayerOnGround)
         //{
@@ -307,7 +363,8 @@ public class Player : CharacterBase
     //jump
     private void Jump()
     {
-        PlayerRigidbody.AddForce(new Vector2(0, jumpForce));
+        //PlayerRigidbody.AddForce(new Vector2(0, jumpForce));
+        PlayerRigidbody.velocity = Vector2.up * jumpForce;
     }
 
 
@@ -321,28 +378,29 @@ public class Player : CharacterBase
         }
     }
 
+    #region Код погано перевіряє зіткнення із землею, проблема в колайдерах на кожному спрайті, краще зробити через Layers
     //check player on ground
-    private bool OnGround()
-    {
-        if (PlayerRigidbody.velocity.y <= 0) 
-        {
-            foreach (Transform pointOnground in isGround)
-            {
-                Collider2D[] collider = Physics2D.OverlapCircleAll(pointOnground.position, checkRadius, layerMask);
+    //private bool OnGround()
+    //{
+    //    if (PlayerRigidbody.velocity.y <= 0) 
+    //    {
+    //        foreach (Transform pointOnGround in isGround)
+    //        {
+    //            Collider2D[] collider = Physics2D.OverlapCircleAll(pointOnGround.position, checkRadius, layerMask);
 
-                for (int i = 0; i < collider.Length; i++)
-                {
-                    if (collider[i].gameObject != gameObject)
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
+    //            for (int i = 0; i < collider.Length; i++)
+    //            {
+    //                if (collider[i].gameObject != gameObject)
+    //                {
+    //                    return true;
+    //                }
+    //            }
+    //        }
+    //    }
 
-        return false;
-    }
-
+    //    return false;
+    //}
+    #endregion
 
     //check layer in animator (PlayerAirLayer)
     private void CheckLayer()
@@ -378,9 +436,24 @@ public class Player : CharacterBase
                 if (health <= 0)
                 {
                     PlayerAnimator.SetTrigger("animatorPlayerDie");
+                    StartCoroutine(GameOver());
                 }
             }
         }
+    }
+
+    private IEnumerator GameOver()
+    {
+        SoundManager.soundManagerInstance.PlaySound("GameOver");
+        PlayerRigidbody.velocity = Vector2.zero;
+
+        int currentIndexScene = SceneManager.GetActiveScene().buildIndex;
+        yield return new WaitForSeconds(4f);
+
+        SoundManager.soundManagerInstance.StopPlaySound("GameOver");
+        SceneManager.LoadScene(currentIndexScene);
+
+        yield return null;
     }
 
     private IEnumerator PlayerBlinkMethod()

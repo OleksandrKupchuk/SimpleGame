@@ -18,12 +18,30 @@ public class InventoryUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        IsElemtntUI = CheckElementUI();
+        //IsElemtntUI = CheckElementUI();
+        CheckElementUI();
 
         Debug.Log("IsElemtntUI = " + IsElemtntUI);
     }
 
-    private bool CheckElementUI()
+    //private bool CheckElementUI()
+    //{
+    //    if (Input.GetMouseButtonDown(0))
+    //    {
+    //        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //        raycastHit = Physics2D.Raycast(mousePosition, Vector2.zero);
+
+    //        //Debug.Log("raycast = " + raycastHit.collider.name);
+    //        if (raycastHit.collider.CompareTag("Inventory"))
+    //        {
+    //            return true;
+    //        }
+    //    }
+
+    //    return false;
+    //}
+
+    private void CheckElementUI()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -33,10 +51,13 @@ public class InventoryUI : MonoBehaviour
             //Debug.Log("raycast = " + raycastHit.collider.name);
             if (raycastHit.collider.CompareTag("Inventory"))
             {
-                return true;
+                IsElemtntUI = true;
             }
         }
 
-        return false;
+        else
+        {
+            IsElemtntUI = false;
+        }
     }
 }

@@ -97,17 +97,18 @@ public class EnemyBase : CharacterBase
         enemyAnimator = GetComponent<Animator>();
 
         canvasHealth = transform.GetComponentInChildren<Canvas>();
+
+        imageHealthBar.fillAmount = CurrentFillAmountHealth();
     }
 
     public virtual void Update()
     {
-        imageHealthBar.fillAmount = CurrentFillAmountHealth(fillAmountHealth);
+        
     }
 
-    protected float CurrentFillAmountHealth(float currentFillamount)
+    protected float CurrentFillAmountHealth()
     {
-        //currentFillamount = fillAmountHealth;
-        return currentFillamount = health / maxHealth;
+        return fillAmountHealth = health / maxHealth;
     }
 
     public void TakeDamage()
@@ -121,6 +122,8 @@ public class EnemyBase : CharacterBase
 
             enemyAnimator.SetTrigger("animatorEnemyHit");
             health -= takeDamage;
+
+            imageHealthBar.fillAmount = CurrentFillAmountHealth();
 
             if (EnemyDie)
             {
@@ -232,7 +235,26 @@ public class EnemyBase : CharacterBase
         }
     }
 
-    public virtual void Attack()
+    //public virtual void Attack()
+    //{
+    //    timeAttack += Time.deltaTime;
+
+    //    enemyAnimator.SetFloat("animatorEnemyRun", 0);
+
+    //    if (timeAttack >= delayAttack)
+    //    {
+    //        CanAttack = true;
+    //        timeAttack = 0;
+    //    }
+
+    //    if (CanAttack)
+    //    {
+    //        enemyAnimator.SetTrigger("animatorEnemyAttack");
+    //        CanAttack = false;
+    //    }
+    //}
+
+    public void Attack()
     {
         timeAttack += Time.deltaTime;
 

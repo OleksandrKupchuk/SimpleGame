@@ -47,7 +47,7 @@ public class RunState : IStateEnemy
 
         enemySwordManRun.ChangeDirection();
 
-        Debug.Log("Run");
+        //Debug.Log("Run");
 
         if(timeRun >= delayRun)
         {

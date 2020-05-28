@@ -141,24 +141,24 @@ public class EnemyArcher : EnemyBase
     //    }
     //}
     #endregion
-    public override void Attack()
-    {
-        timeAttack += Time.deltaTime;
+    //public override void Attack()
+    //{
+    //    timeAttack += Time.deltaTime;
 
-        enemyAnimator.SetFloat("animatorEnemyRun", 0);
+    //    enemyAnimator.SetFloat("animatorEnemyRun", 0);
 
-        if (timeAttack >= delayAttack)
-        {
-            CanAttack = true;
-            timeAttack = 0;
-        }
+    //    if (timeAttack >= delayAttack)
+    //    {
+    //        CanAttack = true;
+    //        timeAttack = 0;
+    //    }
 
-        if (CanAttack)
-        {
-            enemyAnimator.SetTrigger("animatorEnemyAttack");
-            CanAttack = false;
-        }
-    }
+    //    if (CanAttack)
+    //    {
+    //        enemyAnimator.SetTrigger("animatorEnemyAttack");
+    //        CanAttack = false;
+    //    }
+    //}
 
     //method is responsible for creating and directing arrow
     public void FireArrow()

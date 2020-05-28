@@ -21,7 +21,7 @@ public class RangeState : IStateEnemy
     {
         enemySwordmanRange.EnemyLookTarget();
 
-        Debug.Log("Range");
+        //Debug.Log("Range");
 
         if (enemySwordmanRange.EnemyTarget != null && !enemySwordmanRange.EnemyRangeAttack)
         {

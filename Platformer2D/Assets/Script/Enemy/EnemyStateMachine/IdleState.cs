@@ -46,7 +46,7 @@ public class IdleState : IStateEnemy
     {
         enemySwordmanIdle.enemyAnimator.SetFloat("animatorEnemyRun", 0);
         timeIdle += Time.deltaTime;
-        Debug.Log("Idle");
+        //Debug.Log("Idle");
         if (timeIdle >= delayIdleEnemy)
         {
             enemySwordmanIdle.ChangeStateEnemy(new RunState());
