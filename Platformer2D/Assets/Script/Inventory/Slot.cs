@@ -6,7 +6,7 @@ public class Slot : MonoBehaviour
 {
     private Inventory inventory;
     public int slotIsFull;
-    public int stotId;
+    //public int stotId;
 
     void Start()
     {

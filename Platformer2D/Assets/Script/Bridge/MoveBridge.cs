@@ -27,7 +27,7 @@ public class MoveBridge : MonoBehaviour
             bridge.transform.Translate(-bridge.transform.right * Time.deltaTime * 2, endPosition);
         }
 
-        Debug.Log("А я виконуюся =)");
+        //Debug.Log("А я виконуюся =)");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

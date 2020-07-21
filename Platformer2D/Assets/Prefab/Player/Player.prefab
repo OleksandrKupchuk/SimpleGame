@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 5984063916931141368}
   - component: {fileID: 478508571}
   - component: {fileID: 192725448}
+  - component: {fileID: 1840308945}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -216,7 +217,7 @@ MonoBehaviour:
   playerBoxCollider2d: {fileID: 5984063916931141364}
   layerMask:
     serializedVersion: 2
-    m_Bits: 287543
+    m_Bits: 2388791
   jumpForce: 10
   playerSpriteRenderer: {fileID: 5984063916931141365}
 --- !u!61 &5984063916931141364
@@ -319,8 +320,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  itemButton: {fileID: 2733504811163036768, guid: b00c31f47c8e41745b22455cf303a326,
-    type: 3}
 --- !u!114 &192725448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,3 +336,16 @@ MonoBehaviour:
   height: 1
   panel: {fileID: 0}
   slot: {fileID: 4229283579005480401, guid: b775bd6509cfed948b4029b20dacdcb9, type: 3}
+--- !u!114 &1840308945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5984063916931141361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d2c1a520c90aec43ba6d436849effc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axisY: 0

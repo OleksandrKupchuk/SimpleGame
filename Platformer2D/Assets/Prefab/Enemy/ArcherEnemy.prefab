@@ -194,7 +194,7 @@ RectTransform:
   m_Children:
   - {fileID: 147039366}
   m_Father: {fileID: 6396063584607781162}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -363,7 +363,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6396063584607781162}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!68 &929018971244981816
 EdgeCollider2D:
@@ -440,7 +440,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6396063583830924608}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: 0, z: 0}
+  m_LocalPosition: {x: -1.72, y: -0.83, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6396063583692038107}
@@ -521,7 +521,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 3.96, y: -0.117081165}
+  m_Offset: {x: 5.403271, y: -0.117081165}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -532,7 +532,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 9, y: 1.2341623}
+  m_Size: {x: 12, y: 1.2341623}
   m_EdgeRadius: 0
 --- !u!114 &6396063584473899902
 MonoBehaviour:
@@ -559,11 +559,11 @@ GameObject:
   - component: {fileID: 6396063584607781136}
   - component: {fileID: 6396063584607781163}
   - component: {fileID: 6396063584607781167}
-  - component: {fileID: 6737764495074514542}
   - component: {fileID: 6396063584607781166}
   - component: {fileID: 6396063584607781165}
   - component: {fileID: 6396063584607781164}
   - component: {fileID: 7786089240784529135}
+  - component: {fileID: 940081943}
   m_Layer: 16
   m_Name: Archer
   m_TagString: Untagged
@@ -584,8 +584,8 @@ Transform:
   m_Children:
   - {fileID: 6396063583879833255}
   - {fileID: 6396063584473899901}
-  - {fileID: 589108086624992641}
   - {fileID: 504756084}
+  - {fileID: 589108086624992641}
   m_Father: {fileID: 6396063583692038107}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -661,8 +661,14 @@ MonoBehaviour:
   coinPrefab: {fileID: 3203510900274205205, guid: 792cb7e55c29a204fad1b6f37d2b8f60,
     type: 3}
   delayAttack: 0.7
-  enemyRangeAttack: 7
+  firstAttack: 0
+  enemyRangeAttack: 10
   experienceForTheEnemy: 3
+  rayDistance: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  castPoint: {fileID: 0}
   leftEdge: {fileID: 6396063583830924609}
   rightEdge: {fileID: 6396063584654285595}
   enemySword: {fileID: 929018971244981816}
@@ -693,20 +699,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &6737764495074514542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6396063584607781161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cec885d85b29c604187c8b9c9066fb0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemySign: {fileID: 6396063584473899903}
-  enemy: {fileID: 6396063584607781161}
 --- !u!95 &6396063584607781166
 Animator:
   serializedVersion: 3
@@ -775,13 +767,28 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6396063584607781161}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cec885d85b29c604187c8b9c9066fb0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemySign: {fileID: 6396063584473899903}
   enemy: {fileID: 6396063584607781161}
+--- !u!114 &940081943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6396063584607781161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15994dc3421452e49bba211361e9a3d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  archer: {fileID: 6396063584607781163}
+  distance: 10
+  player: {fileID: 0}
 --- !u!1 &6396063584654285594
 GameObject:
   m_ObjectHideFlags: 0
@@ -806,7 +813,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6396063584654285594}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 0, z: 0}
+  m_LocalPosition: {x: 3.44, y: -0.88, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6396063583692038107}

@@ -23,6 +23,8 @@ public class EnemyBase : CharacterBase
     [SerializeField] protected float delayAttack;
 
     public bool CanAttack { get; set; }
+    public bool firstAttack = false;
+
 
     protected float dirPlayer;
     public GameObject EnemyTarget { get; set; }
@@ -30,6 +32,11 @@ public class EnemyBase : CharacterBase
     [SerializeField] protected float enemyRangeAttack;
 
     [SerializeField] int experienceForTheEnemy;
+    [SerializeField] float rayDistance;
+    [SerializeField] LayerMask layerMask;
+
+    [SerializeField] Transform castPoint;
+    //[SerializeField] GameObject player;
 
     public bool EnemyRangeAttack
     {
@@ -94,6 +101,8 @@ public class EnemyBase : CharacterBase
     public override void Start()
     {
         base.Start();
+
+        Physics2D.queriesStartInColliders = false;
         enemyAnimator = GetComponent<Animator>();
 
         canvasHealth = transform.GetComponentInChildren<Canvas>();
@@ -190,14 +199,14 @@ public class EnemyBase : CharacterBase
     //    }
     //}
 
-    public Vector2 ChangeSide()
+    public Vector3 ChangeSide()
     {
         if (facingRight)
         {
-            return Vector2.right;
+            return Vector3.right;
         }
 
-        return Vector2.left;
+        return Vector3.left;
     }
 
     public void ChangeDirection()
@@ -259,18 +268,20 @@ public class EnemyBase : CharacterBase
         timeAttack += Time.deltaTime;
 
         enemyAnimator.SetFloat("animatorEnemyRun", 0);
+        enemyAnimator.SetTrigger("animatorEnemyAttack");
 
-        if (timeAttack >= delayAttack)
-        {
-            CanAttack = true;
-            timeAttack = 0;
-        }
+        //if (timeAttack >= delayAttack)
+        //{
+        //    CanAttack = true;
+        //    timeAttack = 0;
+        //}
 
-        if (CanAttack)
-        {
-            enemyAnimator.SetTrigger("animatorEnemyAttack");
-            CanAttack = false;
-        }
+        //if (CanAttack || !firstAttack)
+        //{
+        //    firstAttack = true;
+        //    enemyAnimator.SetTrigger("animatorEnemyAttack");
+        //    CanAttack = false;
+        //}
     }
 
     public void ChangeStateEnemy(IStateEnemy newState)

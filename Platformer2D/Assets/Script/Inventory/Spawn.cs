@@ -20,7 +20,17 @@ public class Spawn : MonoBehaviour
 
     public void SpawnDroppedItem()
     {
-        Vector2 playerPositions = new Vector2(player.position.x + 1.5f, player.position.y + 0.2f);
-        Instantiate(item, playerPositions, Quaternion.identity);
+        Vector2 playerPositions;
+
+        if (Player.PlayerInstance.facingRight)
+        {
+            playerPositions = new Vector2(player.position.x + 1f, player.position.y - 0.7f);
+            Instantiate(item, playerPositions, Quaternion.identity);
+        }
+        if (!Player.PlayerInstance.facingRight)
+        {
+            playerPositions = new Vector2(player.position.x - 1f, player.position.y - 0.7f);
+            Instantiate(item, playerPositions, Quaternion.identity);
+        }
     }
 }

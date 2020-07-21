@@ -57091,6 +57091,16 @@ PrefabInstance:
       propertyPath: invenroryUI
       value: 
       objectReference: {fileID: 2041370545}
+    - target: {fileID: 5984063916931141367, guid: 5cf11adf059070e46aad375c38a2c534,
+        type: 3}
+      propertyPath: maxHealth
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 5984063916931141367, guid: 5cf11adf059070e46aad375c38a2c534,
+        type: 3}
+      propertyPath: health
+      value: 35
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cf11adf059070e46aad375c38a2c534, type: 3}
 --- !u!1001 &6543441459892694210
@@ -57305,11 +57315,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7016891954228055133, guid: e1388e313a17f4e49a158d90a0383eda,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7016891955332531003, guid: e1388e313a17f4e49a158d90a0383eda,
         type: 3}
       propertyPath: m_Name

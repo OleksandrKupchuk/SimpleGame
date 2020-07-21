@@ -263,13 +263,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 451570986}
-    characterCount: 8
+    characterCount: 0
     spriteCount: 0
     spaceCount: 0
-    wordCount: 1
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -433,13 +433,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 9039660912702770109}
-    characterCount: 4
+    characterCount: 0
     spriteCount: 0
     spaceCount: 0
-    wordCount: 1
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -588,13 +588,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 8395325963521098401}
-    characterCount: 4
+    characterCount: 0
     spriteCount: 0
     spaceCount: 0
-    wordCount: 1
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -695,8 +695,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7016891953603922376}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.023084851, y: 0.023084851, z: 0.023084851}
+  m_LocalPosition: {x: 0, y: 0, z: 9.421875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7016891955544037860}
   m_Father: {fileID: 7016891955012891810}
@@ -704,7 +704,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10.685935, y: -4.2176657}
+  m_AnchoredPosition: {x: 483, y: -179.4}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7016891953643271711
@@ -795,7 +795,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotIsFull: 1
-  stotId: 1
 --- !u!61 &7016891953643271700
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1297,7 +1296,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7016891954228055134
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1840,8 +1839,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7016891954703273076}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.023084853, y: 0.023084853, z: 0.023084853}
+  m_LocalPosition: {x: 0, y: 0, z: 9.421875}
+  m_LocalScale: {x: 0.9421876, y: 0.9421876, z: 0.9421876}
   m_Children:
   - {fileID: 7016891954944410559}
   - {fileID: 7016891955462200752}
@@ -1977,7 +1976,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotIsFull: 0
-  stotId: 0
 --- !u!61 &7016891954861930112
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2278,8 +2276,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7016891955012891809}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -462.89816, y: 182.70273, z: 10}
-  m_LocalScale: {x: 43.31845, y: 43.31845, z: 43.31845}
+  m_LocalPosition: {x: -471, y: 161, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7016891954703273077}
   - {fileID: 7016891955254183887}
@@ -2462,8 +2460,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7016891955254183886}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.023084853, y: 0.023084853, z: 0.023084853}
+  m_LocalPosition: {x: 0, y: 0, z: 9.421875}
+  m_LocalScale: {x: 0.9421876, y: 0.9421876, z: 0.9421876}
   m_Children:
   - {fileID: 7016891954159069345}
   m_Father: {fileID: 7016891955012891810}
@@ -2471,7 +2469,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -1.005, y: -0.81}
+  m_AnchoredPosition: {x: -1.005, y: -41.9}
   m_SizeDelta: {x: 200, y: 16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7016891955254183873
@@ -2598,7 +2596,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotIsFull: 2
-  stotId: 2
 --- !u!61 &7016891955258670041
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2753,7 +2750,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 5
+  m_PlaneDistance: 7
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -2970,14 +2967,14 @@ RectTransform:
   m_GameObject: {fileID: 7016891955479128399}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.20000003, y: 0.20000003, z: 1}
   m_Children: []
   m_Father: {fileID: 7016891954164002517}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -130, y: -20}
+  m_AnchoredPosition: {x: -130, y: -19.999998}
   m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7016891955479128386
@@ -3175,7 +3172,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotIsFull: 3
-  stotId: 3
 --- !u!61 &7016891955508996862
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3238,7 +3234,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -594.9, y: 146.5}
+  m_AnchoredPosition: {x: -565.6, y: 136.4}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7016891955544037862
@@ -3757,13 +3753,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 2084634310989315324}
-    characterCount: 4
+    characterCount: 0
     spriteCount: 0
     spaceCount: 0
-    wordCount: 1
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0

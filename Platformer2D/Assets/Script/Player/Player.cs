@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class Player : CharacterBase
 {
@@ -161,7 +162,6 @@ public class Player : CharacterBase
     public Animator PlayerAnimator { get; set; }
 
     [SerializeField] private float heightBoxCast;
-    [SerializeField] private bool playerOnGround;
     [SerializeField] private BoxCollider2D playerBoxCollider2d;
     [SerializeField] private LayerMask layerMask;
 
@@ -309,7 +309,7 @@ public class Player : CharacterBase
 
         if (Input.GetButtonDown("Fire2"))
         {
-            TakeDamage();
+            //TakeDamage(2);
             if (PlayerOnGround && !PlayerJump)
             {
                 //TakeDamage();
@@ -331,6 +331,12 @@ public class Player : CharacterBase
 
         if (Input.GetButtonDown("Fire1"))//&& !invenroryUI.IsElemtntUI
         {
+            //Debug.Log("1");
+            //if (!EventSystem.current.IsPointerOverGameObject())
+            //{
+            //    PlayerAnimator.SetTrigger("animatorPlayerAttack");
+            //    Debug.Log("2");
+            //}
             PlayerAnimator.SetTrigger("animatorPlayerAttack");
         }
 
@@ -345,17 +351,10 @@ public class Player : CharacterBase
         //{
         //    Jump();
         //}
-
-        //if (Input.GetButtonDown("Jump") && !IsFalling && PlayerRigidbody.velocity.y == 0 && PlayerOnGround)
-        //{
-        //    Jump();
-        //    PlayerAnimator.SetTrigger("animatorPlayerJumpUp");
-        //}
     }
 
     private void Move(float mhorizontal)
     {
-        //SoundManager.soundManagerInstance.PlaySound("PlayerRun");
         PlayerRigidbody.velocity = new Vector2(speed * mhorizontal, PlayerRigidbody.velocity.y);
     }
 
@@ -374,34 +373,11 @@ public class Player : CharacterBase
         if(facingRight && fhorizontal < 0 || !facingRight && fhorizontal > 0)
         {
             facingRight = !facingRight;
-            transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+            //transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+            transform.Rotate(0f, 180f, 0f);
         }
     }
-
-    #region Код погано перевіряє зіткнення із землею, проблема в колайдерах на кожному спрайті, краще зробити через Layers
-    //check player on ground
-    //private bool OnGround()
-    //{
-    //    if (PlayerRigidbody.velocity.y <= 0) 
-    //    {
-    //        foreach (Transform pointOnGround in isGround)
-    //        {
-    //            Collider2D[] collider = Physics2D.OverlapCircleAll(pointOnGround.position, checkRadius, layerMask);
-
-    //            for (int i = 0; i < collider.Length; i++)
-    //            {
-    //                if (collider[i].gameObject != gameObject)
-    //                {
-    //                    return true;
-    //                }
-    //            }
-    //        }
-    //    }
-
-    //    return false;
-    //}
-    #endregion
-
+    
     //check layer in animator (PlayerAirLayer)
     private void CheckLayer()
     {
@@ -417,7 +393,7 @@ public class Player : CharacterBase
     }
 
     //method is responsible for taking damage, start blinking, and running animation death
-    private IEnumerator TakeDamage()
+    private IEnumerator TakeDamage(float damage)
     {
         if (!PlayerBlink)
         {
@@ -426,7 +402,7 @@ public class Player : CharacterBase
                 PlayerAnimator.SetTrigger("animatorPlayerTakeDamage");
                 PlayerBlink = true;
 
-                health -= 5;
+                health -= damage;
 
                 StartCoroutine(PlayerBlinkMethod());
                 yield return new WaitForSeconds(playerDelayBlink);
@@ -475,13 +451,18 @@ public class Player : CharacterBase
             SoundManager.soundManagerInstance.PlaySound("PlayerPickUpCoin");
             Destroy(collision.gameObject);
         }
+
+        if (collision.gameObject.CompareTag("Particle"))
+        {
+            StartCoroutine(TakeDamage(2));
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (listDamageSourceForPlayer.Contains(collision.tag))
         {
-            StartCoroutine(TakeDamage());
+            StartCoroutine(TakeDamage(5));
         }
 
         if (collision.gameObject.CompareTag("Chest"))

@@ -6,7 +6,12 @@ public class Inventory : MonoBehaviour
 {
     public bool[] isFull;
     public GameObject[] slots;
-    [SerializeField] private GameObject itemButton;
+    //[SerializeField] private GameObject inventoryObject;
+
+    //private void Start()
+    //{
+        
+    //}
 
     //private void OnCollisionEnter2D(Collision2D collision)
     //{

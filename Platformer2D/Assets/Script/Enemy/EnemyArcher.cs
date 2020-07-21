@@ -23,6 +23,8 @@ public class EnemyArcher : EnemyBase
         {
             StateEnemy();
         }
+
+        //Debug.Log("check = " + CheckCollider(ChangeSide()));
     }
 
     private void StateEnemy()

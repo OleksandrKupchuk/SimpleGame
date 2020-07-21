@@ -10,13 +10,18 @@ public class AnimatorPlayerAttackBehaviour : StateMachineBehaviour
         animator.GetComponent<Player>().PlayerAttack = true;
         animator.SetFloat("animatorPlayerWalk", 0);
 
-        if (animator.CompareTag("Player"))
+        if (Player.PlayerInstance.PlayerOnGround)
         {
-            if (Player.PlayerInstance.PlayerOnGround)
-            {
-                Player.PlayerInstance.PlayerRigidbody.velocity = Vector2.zero;
-            }
+            Player.PlayerInstance.PlayerRigidbody.velocity = Vector2.zero;
         }
+
+        //if (animator.CompareTag("Player"))
+        //{
+        //    if (Player.PlayerInstance.PlayerOnGround)
+        //    {
+        //        Player.PlayerInstance.PlayerRigidbody.velocity = Vector2.zero;
+        //    }
+        //}
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
