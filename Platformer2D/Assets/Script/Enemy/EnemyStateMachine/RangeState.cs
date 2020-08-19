@@ -19,7 +19,13 @@ public class RangeState : IStateEnemy
 
     public void Execute()
     {
-        enemySwordmanRange.EnemyLookTarget();
+        if(Player.PlayerInstance.transform.position.x < enemySwordmanRange.transform.position.x - 0.5f || Player.PlayerInstance.transform.position.x > enemySwordmanRange.transform.position.x + 0.5f)
+        {
+            //Debug.Log("pos player" + Player.PlayerInstance.transform.position.x);
+            //Debug.Log("pos enemy" + enemySwordmanRange.transform.position.x);
+            enemySwordmanRange.EnemyLookTarget();
+        }
+        //enemySwordmanRange.EnemyLookTarget();
 
         //Debug.Log("Range");
 
@@ -34,7 +40,16 @@ public class RangeState : IStateEnemy
 
         if (enemySwordmanRange.EnemyOutsideEdge)
         {
-            enemySwordmanRange.EnemyTarget = null;
+            if(enemySwordmanRange.EnemyTarget != null && enemySwordmanRange.EnemyRangeAttack)
+            {
+                EnemyRange();
+            }
+
+            else if(enemySwordmanRange.EnemyTarget != null && !enemySwordmanRange.EnemyRangeAttack)
+            {
+                //enemySwordmanRange.Flip();
+                enemySwordmanRange.EnemyTarget = null;
+            }
         }
 
         if (enemySwordmanRange.EnemyRangeAttack)

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1853253803351985808}
   - component: {fileID: 6910321445468652934}
   - component: {fileID: 3219720363692110058}
+  - component: {fileID: 80383332909557678}
   m_Layer: 21
   m_Name: rock2_debris_4
   m_TagString: Particle
@@ -212,10 +213,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04996db49af06b448baf0c86cd790f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 1920979608603526954}
   ground:
   - Ground
   - PlatformGround
+  - Platform
+--- !u!95 &80383332909557678
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351802052822657955}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d8125bfb2b98a0f498b43da984b6f679, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &416922148368137347
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,6 +250,7 @@ GameObject:
   - component: {fileID: 4905280963789673447}
   - component: {fileID: 2257708978066604966}
   - component: {fileID: 1370030915467327460}
+  - component: {fileID: 8114994819197809900}
   m_Layer: 21
   m_Name: rock2_debris_1
   m_TagString: Particle
@@ -427,10 +448,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04996db49af06b448baf0c86cd790f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 4729981799105295792}
   ground:
   - Ground
   - PlatformGround
+  - Platform
+--- !u!95 &8114994819197809900
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416922148368137347}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d8125bfb2b98a0f498b43da984b6f679, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1211908935632873357
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,6 +485,7 @@ GameObject:
   - component: {fileID: 9060227063046775993}
   - component: {fileID: 212276194497529881}
   - component: {fileID: 1686439905080766903}
+  - component: {fileID: 8878815873149679188}
   m_Layer: 21
   m_Name: rock2_debris_3
   m_TagString: Particle
@@ -659,10 +700,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04996db49af06b448baf0c86cd790f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 5232078051328948626}
   ground:
   - Ground
   - PlatformGround
+  - Platform
+--- !u!95 &8878815873149679188
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211908935632873357}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d8125bfb2b98a0f498b43da984b6f679, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3689327381635852000
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,6 +737,7 @@ GameObject:
   - component: {fileID: 6615773973983229136}
   - component: {fileID: 1911568824204572459}
   - component: {fileID: 5165570690123003302}
+  - component: {fileID: 7382533712700710859}
   m_Layer: 21
   m_Name: rock2_debris_2
   m_TagString: Particle
@@ -858,10 +919,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04996db49af06b448baf0c86cd790f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 2318680587741748237}
   ground:
   - Ground
   - PlatformGround
+  - Platform
+--- !u!95 &7382533712700710859
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3689327381635852000}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d8125bfb2b98a0f498b43da984b6f679, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4602412037846413770
 GameObject:
   m_ObjectHideFlags: 0
@@ -871,6 +951,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8784665895161924551}
+  - component: {fileID: 8211423736972679963}
   m_Layer: 21
   m_Name: Meteor_1_debris
   m_TagString: Untagged
@@ -897,6 +978,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8211423736972679963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4602412037846413770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a37bba065533b5f46911b561210d34ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6949000951476317482
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,6 +1004,7 @@ GameObject:
   - component: {fileID: 8941798396523313771}
   - component: {fileID: 2256817097327259250}
   - component: {fileID: 779769059982922572}
+  - component: {fileID: 713540352104421948}
   m_Layer: 21
   m_Name: rock2_debris_0
   m_TagString: Particle
@@ -1117,7 +1211,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04996db49af06b448baf0c86cd790f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 3547175917157565752}
   ground:
   - Ground
   - PlatformGround
+  - Platform
+--- !u!95 &713540352104421948
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6949000951476317482}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d8125bfb2b98a0f498b43da984b6f679, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

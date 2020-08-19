@@ -10,6 +10,8 @@ public class AnimatorPlayerAttackBehaviour : StateMachineBehaviour
         animator.GetComponent<Player>().PlayerAttack = true;
         animator.SetFloat("animatorPlayerWalk", 0);
 
+        SoundManager.soundManagerInstance.PlaySound("Player_Attack");
+
         if (Player.PlayerInstance.PlayerOnGround)
         {
             Player.PlayerInstance.PlayerRigidbody.velocity = Vector2.zero;

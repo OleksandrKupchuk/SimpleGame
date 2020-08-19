@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 12811921586279735}
   - component: {fileID: -8253973610694337868}
   - component: {fileID: 4068217777518130696}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: Chest
   m_TagString: Chest
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80b49a5cc48c9004bba049693d812fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinPrefab: {fileID: 3203510900274205205, guid: 792cb7e55c29a204fad1b6f37d2b8f60,
+  coinPrefab: {fileID: 3203510900274205205, guid: b927dcc0c5f9e204fb9650592f5f9f52,
     type: 3}
   animatorChest: {fileID: 12811921586279735}
   audioSource: {fileID: 4068217777518130696}

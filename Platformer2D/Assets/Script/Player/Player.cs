@@ -9,22 +9,23 @@ using UnityEngine.EventSystems;
 public class Player : CharacterBase
 {
     private IUsable usable;
-    [SerializeField] InventoryUI invenroryUI;
 
+    [Header("Player Components")]
+    [SerializeField] InventoryUI invenroryUI;
     [SerializeField] GameObject shieldPrefab;
     [SerializeField] Transform shieldPointStart;
+    [SerializeField] private SourceDamage sourceDamage;
 
+    [Header("Player parametrs")]
+    public int indexScene;
     public bool shieldDie = false;
-
-    [SerializeField] List<string> listDamageSourceForPlayer;
-
-    [SerializeField] public int playerCurrentLevel;
+    public int playerCurrentLevel;
+    [SerializeField] private float playerDelayBlink;
+    [SerializeField] private int playerCurrentExperience; //player experience;
+    [SerializeField] private int interestExperienceForNextLevel;
+    [SerializeField] private int interestHealthForNextLevel;
 
     public bool PlayerBlink { get; set; }
-    [SerializeField] float playerDelayBlink;
-
-    //player experience;
-    [SerializeField] private int playerCurrentExperience;
 
     public int PlayerCurrentExperience
     {
@@ -37,9 +38,6 @@ public class Player : CharacterBase
     {
         get => maxExperienceInCurrentLevel; set => maxExperienceInCurrentLevel = value;
     }
-
-    [SerializeField] int interestExperienceForNextLevel;
-    [SerializeField] int interestHealthForNextLevel;
 
     public int InterestExperienceForNextLevel 
     { 
@@ -165,7 +163,7 @@ public class Player : CharacterBase
     [SerializeField] private BoxCollider2D playerBoxCollider2d;
     [SerializeField] private LayerMask layerMask;
 
-    [SerializeField] int jumpForce;
+    public int jumpForce;
 
     public bool PlayerOnGround { get; private set; }
     public Rigidbody2D PlayerRigidbody { get; set; }
@@ -176,6 +174,8 @@ public class Player : CharacterBase
     {
         PlayerAnimator = GetComponent<Animator>();
         PlayerRigidbody = GetComponent<Rigidbody2D>();
+
+        GetCurrentIndexScene();
     }
 
     void Update()
@@ -259,11 +259,6 @@ public class Player : CharacterBase
             Move(phorizontal);
         }
 
-        //if (PlayerJump && PlayerOnGround && PlayerRigidbody.velocity.y == 0)
-        //{
-        //    Jump();
-        //}
-
         #region варіації перевірки стрибка
         //if (PlayerJump && PlayerRigidbody.velocity.y == 0)
         //{
@@ -313,7 +308,8 @@ public class Player : CharacterBase
             if (PlayerOnGround && !PlayerJump)
             {
                 //TakeDamage();
-                AddIndicatorForPlayer(takeExperience);
+                Debug.Log("shok");
+                //AddIndicatorForPlayer(takeExperience);
 
                 PlayerAnimator.SetBool("animatorPlayerShield", true);
                 SpawnShield();
@@ -329,15 +325,20 @@ public class Player : CharacterBase
             }
         }
 
-        if (Input.GetButtonDown("Fire1"))//&& !invenroryUI.IsElemtntUI
+        if (Input.GetButtonDown("Fire1") && PlayerOnGround)//&& !invenroryUI.IsElemtntUI
         {
             //Debug.Log("1");
-            //if (!EventSystem.current.IsPointerOverGameObject())
-            //{
-            //    PlayerAnimator.SetTrigger("animatorPlayerAttack");
-            //    Debug.Log("2");
-            //}
-            PlayerAnimator.SetTrigger("animatorPlayerAttack");
+            if (!EventSystem.current.IsPointerOverGameObject())
+            {
+                PlayerAnimator.SetTrigger("animatorPlayerAttack");
+                //Debug.Log("2");
+            }
+
+            else
+            {
+                //Debug.Log("1");
+            }
+            //PlayerAnimator.SetTrigger("animatorPlayerAttack");
         }
 
         if (Input.GetButtonDown("Jump"))
@@ -346,11 +347,6 @@ public class Player : CharacterBase
             PlayerAnimator.SetTrigger("animatorPlayerJumpUp");
             //Jump();
         }
-
-        //if((bufferingJumpPressRemember >  0) && PlayerOnGround)
-        //{
-        //    Jump();
-        //}
     }
 
     private void Move(float mhorizontal)
@@ -362,6 +358,7 @@ public class Player : CharacterBase
     //jump
     private void Jump()
     {
+        SoundManager.soundManagerInstance.PlaySound("Player_Jump");
         //PlayerRigidbody.AddForce(new Vector2(0, jumpForce));
         PlayerRigidbody.velocity = Vector2.up * jumpForce;
     }
@@ -393,7 +390,7 @@ public class Player : CharacterBase
     }
 
     //method is responsible for taking damage, start blinking, and running animation death
-    private IEnumerator TakeDamage(float damage)
+    public IEnumerator TakeDamage(float damage)
     {
         if (!PlayerBlink)
         {
@@ -411,7 +408,6 @@ public class Player : CharacterBase
 
                 if (health <= 0)
                 {
-                    PlayerAnimator.SetTrigger("animatorPlayerDie");
                     StartCoroutine(GameOver());
                 }
             }
@@ -420,6 +416,11 @@ public class Player : CharacterBase
 
     private IEnumerator GameOver()
     {
+        PlayerAnimator.SetTrigger("animatorPlayerDie");
+
+        PlayerRigidbody.gravityScale = 0;
+        gameObject.layer = 23;
+
         SoundManager.soundManagerInstance.PlaySound("GameOver");
         PlayerRigidbody.velocity = Vector2.zero;
 
@@ -460,14 +461,33 @@ public class Player : CharacterBase
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (listDamageSourceForPlayer.Contains(collision.tag))
+        if (sourceDamage.sourceDamage.Contains(collision.tag))
         {
-            StartCoroutine(TakeDamage(5));
+            if(collision.gameObject.GetComponent<EnemyDamage>() == null)
+            {
+                Debug.LogError("Посилання на об'єкт не знайдено, або об'єкт не містить потрібний елемент");
+            }
+            else
+            {
+                StartCoroutine(TakeDamage(collision.gameObject.GetComponent<EnemyDamage>().damage));
+            }
+        }
+
+        if (collision.gameObject.CompareTag("Water"))
+        {
+            StartCoroutine(GameOver());
         }
 
         if (collision.gameObject.CompareTag("Chest"))
         {
             usable = collision.GetComponent<IUsable>();
+        }
+
+        if (collision.gameObject.CompareTag("Coin"))
+        {
+            GameManager.GameManagerInstance.CountCoin++;
+            SoundManager.soundManagerInstance.PlaySound("PlayerPickUpCoin");
+            Destroy(collision.gameObject);
         }
     }
 
@@ -535,5 +555,12 @@ public class Player : CharacterBase
     {
         SoundManager.soundManagerInstance.PlaySound("PlayerLevelUp");
         playerCurrentLevel++;
+    }
+
+    public void GetCurrentIndexScene()
+    {
+        indexScene = SceneManager.GetActiveScene().buildIndex;
+
+        Debug.Log("scene index = " + indexScene);
     }
 }

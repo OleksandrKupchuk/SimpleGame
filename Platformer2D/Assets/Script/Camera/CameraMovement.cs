@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField] Transform playerPosition; 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private Transform playerPosition;
 
-    // Update is called once per frame
+    void Start() => playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
+
     void Update()
     {
         transform.position = new Vector3(playerPosition.transform.position.x, playerPosition.transform.position.y + 1, -10);

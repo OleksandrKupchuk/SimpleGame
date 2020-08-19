@@ -18,6 +18,11 @@ TagManager:
   - Ground
   - PlatformGround
   - Particle
+  - Platform
+  - Canvas
+  - Water
+  - PanelUI
+  - Shop
   layers:
   - Default
   - TransparentFX
@@ -41,8 +46,8 @@ TagManager:
   - Bridge
   - Boss
   - AuxiliaryThings
-  - 
-  - 
+  - Chest
+  - WithoutCollision
   - 
   - 
   - 

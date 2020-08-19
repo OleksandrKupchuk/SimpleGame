@@ -17,6 +17,7 @@ public class EnemyArcher : EnemyBase
     {
         base.Update();
 
+        CheckPlayer(0);
         //Debug.Log("FacingR = " + facingRight);
         //ChangeState(currentState);
         if (!EnemyDie)
@@ -24,7 +25,9 @@ public class EnemyArcher : EnemyBase
             StateEnemy();
         }
 
-        //Debug.Log("check = " + CheckCollider(ChangeSide()));
+        Debug.Log("check target = " + EnemyTarget);
+        Debug.Log("outside = " + EnemyOutsideEdge);
+        Debug.Log("range = " + EnemyRangeAttack);
     }
 
     private void StateEnemy()
@@ -143,25 +146,6 @@ public class EnemyArcher : EnemyBase
     //    }
     //}
     #endregion
-    //public override void Attack()
-    //{
-    //    timeAttack += Time.deltaTime;
-
-    //    enemyAnimator.SetFloat("animatorEnemyRun", 0);
-
-    //    if (timeAttack >= delayAttack)
-    //    {
-    //        CanAttack = true;
-    //        timeAttack = 0;
-    //    }
-
-    //    if (CanAttack)
-    //    {
-    //        enemyAnimator.SetTrigger("animatorEnemyAttack");
-    //        CanAttack = false;
-    //    }
-    //}
-
     //method is responsible for creating and directing arrow
     public void FireArrow()
     {
@@ -179,13 +163,20 @@ public class EnemyArcher : EnemyBase
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("PlayerSword"))
-        {
-            Debug.Log("Take");
-            TakeDamage();
-            EnemyTarget = collision.gameObject;
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("PlayerSword"))
+    //    {
+    //        Debug.Log("Take");
+    //        TakeDamage();
+    //        EnemyTarget = collision.gameObject;
+    //    }
+
+    //    if (collision.CompareTag("Player"))
+    //    {
+    //        Debug.Log("collision = " + collision.gameObject);
+    //        //TakeDamage();
+    //        EnemyTarget = collision.gameObject;
+    //    }
+    //}
 }

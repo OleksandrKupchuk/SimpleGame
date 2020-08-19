@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -10,6 +11,11 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CircleCollider2D))]
 public class EnemyBase : CharacterBase
 {
+    [SerializeField] private DestroyEnemyObject parentObject;
+
+    [SerializeField] private GameObject combatText;
+    [SerializeField] private float combatTextPosition;
+
     protected Canvas canvasHealth;
     [SerializeField] Image imageHealthBar;
     [SerializeField] GameObject gameObjectHealthBar;
@@ -25,18 +31,17 @@ public class EnemyBase : CharacterBase
     public bool CanAttack { get; set; }
     public bool firstAttack = false;
 
-
     protected float dirPlayer;
     public GameObject EnemyTarget { get; set; }
 
     [SerializeField] protected float enemyRangeAttack;
-
     [SerializeField] int experienceForTheEnemy;
-    [SerializeField] float rayDistance;
-    [SerializeField] LayerMask layerMask;
 
-    [SerializeField] Transform castPoint;
-    //[SerializeField] GameObject player;
+    public float distance;
+    RaycastHit2D hitInfo;
+    private GameObject playerObject;
+    [SerializeField] private LayerMask layerMask;
+
 
     public bool EnemyRangeAttack
     {
@@ -50,6 +55,11 @@ public class EnemyBase : CharacterBase
                 }
             }
 
+            else
+            {
+                return false;
+            }
+
             return false;
         }
     }
@@ -58,7 +68,7 @@ public class EnemyBase : CharacterBase
     {
         get
         {
-            if(transform.position.x >= rightEdge.position.x || transform.position.x <= leftEdge.position.x)
+            if(transform.position.x > rightEdge.position.x || transform.position.x < leftEdge.position.x) //<= >=
             {
                 return true;
             }
@@ -90,14 +100,11 @@ public class EnemyBase : CharacterBase
 
     public Animator enemyAnimator;
 
-    [SerializeField] int takeDamage;
-
     public bool EnemyAttack { get; set; }
 
     public bool EnemyHit { get; set; }
     protected float directionEnemy;
 
-    // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
@@ -108,11 +115,14 @@ public class EnemyBase : CharacterBase
         canvasHealth = transform.GetComponentInChildren<Canvas>();
 
         imageHealthBar.fillAmount = CurrentFillAmountHealth();
+
+        playerObject = GameObject.FindGameObjectWithTag("Player");
+        Physics2D.queriesStartInColliders = false;
     }
 
     public virtual void Update()
     {
-        
+        //CheckPlayer();
     }
 
     protected float CurrentFillAmountHealth()
@@ -120,7 +130,7 @@ public class EnemyBase : CharacterBase
         return fillAmountHealth = health / maxHealth;
     }
 
-    public void TakeDamage()
+    public void TakeDamage(int damage)
     {
         if (!EnemyDie)
         {
@@ -130,13 +140,16 @@ public class EnemyBase : CharacterBase
             }
 
             enemyAnimator.SetTrigger("animatorEnemyHit");
-            health -= takeDamage;
+            health -= damage;
+            GameObject textDamage = Instantiate(combatText, new Vector3(transform.position.x, transform.position.y + combatTextPosition), Quaternion.identity);
+            textDamage.transform.GetChild(0).GetComponent<TextMeshPro>().text = damage.ToString();
 
             imageHealthBar.fillAmount = CurrentFillAmountHealth();
 
             if (EnemyDie)
             {
                 gameObjectHealthBar.SetActive(false);
+                enemySword.enabled = false;
                 Die();
             }
         }
@@ -144,11 +157,14 @@ public class EnemyBase : CharacterBase
 
     public void Die()
     {
+        gameObject.layer = 23;
         enemyAnimator.SetTrigger("animatorEnemyDie");
         Player.PlayerInstance.AddIndicatorForPlayer(experienceForTheEnemy);
 
+        Debug.Log("die");
         SpawnItems();
         Destroy(gameObject, 1.5f);
+        parentObject.DestroyObject();
     }
 
     public void SpawnItems()
@@ -268,20 +284,15 @@ public class EnemyBase : CharacterBase
         timeAttack += Time.deltaTime;
 
         enemyAnimator.SetFloat("animatorEnemyRun", 0);
-        enemyAnimator.SetTrigger("animatorEnemyAttack");
+        //enemyAnimator.SetTrigger("animatorEnemyAttack");
+        //enemyAnimator.SetBool("Attack", true);
 
-        //if (timeAttack >= delayAttack)
-        //{
-        //    CanAttack = true;
-        //    timeAttack = 0;
-        //}
-
-        //if (CanAttack || !firstAttack)
-        //{
-        //    firstAttack = true;
-        //    enemyAnimator.SetTrigger("animatorEnemyAttack");
-        //    CanAttack = false;
-        //}
+        if (timeAttack >= delayAttack)
+        {
+            enemyAnimator.SetTrigger("animatorEnemyAttack");
+            //CanAttack = true;
+            timeAttack = 0;
+        }
     }
 
     public void ChangeStateEnemy(IStateEnemy newState)
@@ -289,5 +300,89 @@ public class EnemyBase : CharacterBase
         currentState = newState;
 
         currentState.Enter(this);
+    }
+
+    public void CheckPlayer(int axisY)
+    {
+        if (facingRight)
+        {
+            hitInfo = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + axisY), Vector2.right, distance, layerMask);
+            if (hitInfo.collider != null)
+            {
+                if (hitInfo.collider.CompareTag("Player"))
+                {
+                    if(EnemyOutsideEdge && EnemyRangeAttack || !EnemyOutsideEdge)
+                    {
+                        EnemyTarget = playerObject;
+                    }
+                    Debug.DrawLine(new Vector2(transform.position.x, transform.position.y + axisY), hitInfo.point, Color.black);
+                }
+
+                else if(hitInfo.collider.tag != "Player")
+                {
+                    EnemyTarget = null;
+
+                    Debug.DrawLine(new Vector2(transform.position.x, transform.position.y + axisY), hitInfo.point, Color.white);
+                }
+            }
+            else
+            {
+                Debug.DrawLine(new Vector2(transform.position.x, transform.position.y + axisY), new Vector3(transform.position.x, transform.position.y + axisY) + Vector3.right * distance, Color.green);
+                EnemyTarget = null;
+            }
+        }
+        else if (!facingRight)
+        {
+            hitInfo = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + axisY), Vector2.left, distance, layerMask);
+
+            if (hitInfo.collider != null)
+            {
+                if (hitInfo.collider.CompareTag("Player"))
+                {
+                    if (EnemyOutsideEdge && EnemyRangeAttack || !EnemyOutsideEdge)
+                    {
+                        EnemyTarget = playerObject;
+                    }
+
+                    Debug.DrawLine(new Vector2(transform.position.x, transform.position.y + axisY), hitInfo.point, Color.black);
+                }
+
+                else if (hitInfo.collider.tag != "Player")
+                {
+                    EnemyTarget = null;
+
+                    Debug.DrawLine(new Vector2(transform.position.x, transform.position.y + axisY), hitInfo.point, Color.white);
+                }
+            }
+            else
+            {
+                Debug.DrawLine(new Vector2(transform.position.x, transform.position.y + axisY), new Vector3(transform.position.x, transform.position.y + axisY) + Vector3.left * distance, Color.green);
+                EnemyTarget = null;
+            }
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PlayerSword"))
+        {
+            if (!EnemyDie)
+            {
+                Debug.Log("Take");
+                SoundManager.soundManagerInstance.PlaySound("Enemy_Hit");
+                enemyAnimator.ResetTrigger("animatorEnemyAttack");
+                TakeDamage(Player.PlayerInstance.damage);
+                EnemyTarget = collision.gameObject;
+                EnemyLookTarget();
+            }
+        }
+
+        if (collision.CompareTag("Player"))
+        {
+            //StartCoroutine(Player.PlayerInstance.TakeDamage(damage));
+            //Flip();
+            EnemyTarget = collision.gameObject;
+            EnemyLookTarget();
+        }
     }
 }

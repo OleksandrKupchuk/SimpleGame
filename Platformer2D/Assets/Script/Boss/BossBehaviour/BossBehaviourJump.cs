@@ -5,20 +5,28 @@ using UnityEngine;
 public class BossBehaviourJump : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        animator.GetComponent<Boss>().delayJump = 0.5f;
+    }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //Debug.Log("distY = " + Mathf.Abs(animator.GetComponent<Boss>().distanceY));
+        //Debug.Log("target = " + animator.GetComponent<Boss>().Target);
 
-        if(animator.GetComponent<Boss>().Target != null)
+        if (animator.GetComponent<Boss>().Target != null)
         {
-            animator.SetTrigger("animatorBossJumpAttack");
+            animator.SetTrigger("animatorBossAttack");
         }
+
+        if (animator.GetComponent<Boss>().IsFalling)
+        {
+            //animator.SetBool("Jump", false);
+            animator.SetBool("isFalling", true);
+        }
+
+        //Debug.Log("falling = " + animator.GetComponent<Boss>().IsFalling);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

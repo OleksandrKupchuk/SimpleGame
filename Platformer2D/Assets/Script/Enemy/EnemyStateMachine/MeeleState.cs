@@ -21,6 +21,7 @@ public class MeeleState : IStateEnemy
         //Debug.Log("Meele");
         if (enemySwordmanMeele.EnemyRangeAttack && !Player.PlayerInstance.PlayerDie)
         {
+            enemySwordmanMeele.EnemyLookTarget();
             EnemyAttack();
         }
         
@@ -47,6 +48,7 @@ public class MeeleState : IStateEnemy
 
     private void EnemyAttack()
     {
+        //Debug.Log("Meele");
         //enemySwordmanMeele.enemyAnimator.SetTrigger("animatorEnemyAttack");
         enemySwordmanMeele.Attack();
     }

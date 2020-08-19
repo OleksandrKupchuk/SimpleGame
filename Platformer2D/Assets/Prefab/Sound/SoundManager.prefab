@@ -100,3 +100,31 @@ MonoBehaviour:
     loopSound: 1
     playOnAwakeSound: 0
     audioSource: {fileID: 0}
+  - nameAudio: Player_Jump
+    clip: {fileID: 8300000, guid: 7ca49818e43982842be65505184598ab, type: 3}
+    volumeAudio: 1
+    pitchAudio: 1.5
+    loopSound: 0
+    playOnAwakeSound: 0
+    audioSource: {fileID: 0}
+  - nameAudio: Player_Attack
+    clip: {fileID: 8300000, guid: 9d23ceaa3c84f074ab03f960f1590817, type: 3}
+    volumeAudio: 1
+    pitchAudio: 1
+    loopSound: 0
+    playOnAwakeSound: 0
+    audioSource: {fileID: 0}
+  - nameAudio: Enemy_Hit
+    clip: {fileID: 8300000, guid: 391730a7d399a014ea930d4b00f6456b, type: 3}
+    volumeAudio: 1
+    pitchAudio: 1
+    loopSound: 0
+    playOnAwakeSound: 0
+    audioSource: {fileID: 0}
+  - nameAudio: Potion_Use
+    clip: {fileID: 8300000, guid: 6bb3e099542d49844ba38500995a2905, type: 3}
+    volumeAudio: 0.6
+    pitchAudio: 1
+    loopSound: 0
+    playOnAwakeSound: 0
+    audioSource: {fileID: 0}

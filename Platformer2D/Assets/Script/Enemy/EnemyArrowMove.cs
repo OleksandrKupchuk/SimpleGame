@@ -5,8 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyArrowMove : MonoBehaviour
 {
-    [SerializeField] float speedArrow;
-    [SerializeField] Rigidbody2D arrowRigidbody2d;
+    [SerializeField] private float speedArrow;
+    [SerializeField] private Rigidbody2D arrowRigidbody2d;
+    [SerializeField] private SpriteRenderer sprite;
 
     Vector2 arrowDirection;
 
@@ -32,9 +33,11 @@ public class EnemyArrowMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("PlayerShield"))
-        {
-            Destroy(gameObject);
-        }
+        sprite.enabled = false;
+        Destroy(gameObject, 1f);
+        //if (collision.comparetag("playershield"))
+        //{
+        //    destroy(gameobject);
+        //}
     }
 }

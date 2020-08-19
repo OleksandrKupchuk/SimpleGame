@@ -5,45 +5,44 @@ using UnityEngine;
 public class Meteor : MonoBehaviour
 {
     [Header("Parametrs")]
-    //[SerializeField] private float speedMinRotation;
-    //[SerializeField] private float speedMaxRotation;
+    [SerializeField] private Collider2D circleCollider;
     [SerializeField] private List<string> collisionObject;
     [SerializeField] private GameObject smokePartical;
     [SerializeField] private GameObject debrisPrefab;
+    [SerializeField] private GameObject particalExplosion;
     [SerializeField] private Rigidbody2D meteorRigidbody;
     [SerializeField] private float speed;
-    [SerializeField] GameObject meteor;
-    [SerializeField] GameObject explosion;
-    private float target;
+    [SerializeField] private GameObject meteor;
+    [SerializeField] private GameObject explosion;
+    [SerializeField] private AudioSource audio;
+    private float positionX;
+    private float positionY;
     private GameObject player;
-    private Transform playerTransform;
-    private GameObject partical;
-    //private float speedRotation;
+    private GameObject cameraObject;
+    private Animator cameraAnimator;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        playerTransform = player.transform;
-        //target = Random.Range(player.transform.position.x - 0.5f, player.transform.position.x + 0.5f);
-        var angle = Mathf.Atan2(transform.position.y - playerTransform.position.y, transform.position.x - playerTransform.position.x) * Mathf.Rad2Deg;
-        //partical = Instantiate(smokePartical, transform.position, Quaternion.Euler(0f, 0f, angle));
+        cameraObject = GameObject.FindGameObjectWithTag("MainCamera");
+        cameraAnimator = cameraObject.GetComponent<Animator>();
+
+        positionX = Random.Range(player.GetComponent<PlayerCollision>().axisMinX, player.GetComponent<PlayerCollision>().axisMaxX);
+        positionY = player.GetComponent<PlayerCollision>().axisY;
+
+        //Debug.Log("metMin = " + player.GetComponent<PlayerCollision>().axisMinX);
+        //Debug.Log("metMax = " + player.GetComponent<PlayerCollision>().axisMaxX);
+
+        //Debug.Log("startX = " + positionX);
+        //Debug.Log("startY = " + positionY);
+
+        var angle = Mathf.Atan2(transform.position.y - positionY, transform.position.x - positionX) * Mathf.Rad2Deg;
         smokePartical.transform.Rotate(0f, 0f, angle);
     }
 
-    [System.Obsolete]
-    void Update()
+    private void FixedUpdate()
     {
-        //transform.RotateAroundLocal(Vector3.forward, angleRotation);
-        //transform.RotateAround(meteor.transform.localPosition, Vector3.back, Time.deltaTime * speedRotation);
-        //partical.transform.position = transform.position;
-
-        //Vector2 newPos = Vector2.MoveTowards(meteorRigidbody.position, point.position, speed * Time.fixedDeltaTime);
-        //meteorRigidbody.MovePosition(newPos);
-        PathMeteor();
-
-        Debug.Log("x = " + player.GetComponent<PlayerCollision>().targetX);
-        Debug.Log("y = " + player.GetComponent<PlayerCollision>().axisY);
-
+        PathMeteor(positionX, positionY);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -54,19 +53,39 @@ public class Meteor : MonoBehaviour
         }
     }
 
-    public void PathMeteor()
+    public void PathMeteor(float posX, float posY)
     {
-        Vector2 newPos = Vector2.MoveTowards(meteorRigidbody.position, new Vector2(player.GetComponent<PlayerCollision>().targetX, player.GetComponent<PlayerCollision>().axisY), speed * Time.fixedDeltaTime);
+        Vector2 newPos = Vector2.MoveTowards(meteorRigidbody.position, new Vector2(posX, posY), speed * Time.deltaTime);
         meteorRigidbody.MovePosition(newPos);
+        //Debug.Log("UpdateX = " + posX);
+        //Debug.Log("UpdateY = " + positionY);
     }
 
     private void SpawnPartical()
     {
+        circleCollider.enabled = false;
 
-       Instantiate(explosion, transform.position, Quaternion.identity);
+        Instantiate(debrisPrefab, transform.position, Quaternion.identity);
+
+        Instantiate(explosion, transform.position, Quaternion.identity);
+
+        ShakeCamera();
+
+        audio.Play();
+
+        Instantiate(particalExplosion, transform.position, Quaternion.identity);
 
         Destroy(meteor);
-        //Destroy(smokePartical, 2.1f);
-        //Destroy(gameObject, 0.6f);
+
+        var main = smokePartical.GetComponent<ParticleSystem>().main;
+        main.loop = false;
+
+        Destroy(gameObject, 1.5f);
+    }
+
+    private void ShakeCamera()
+    {
+        cameraAnimator.SetTrigger("Shake");
+        //touchGrround = false;
     }
 }

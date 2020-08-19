@@ -46,3 +46,5 @@ MonoBehaviour:
   player: {fileID: 5984063916931141367, guid: 5cf11adf059070e46aad375c38a2c534, type: 3}
   gameManager: {fileID: 5921134264990481896, guid: a198fe1b46a01f14ea4d6157c61dac44,
     type: 3}
+  shopWindow: {fileID: 419347802772972702, guid: 664aa904d2a951b4a89a833b619b8ccb,
+    type: 3}

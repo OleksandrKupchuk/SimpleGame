@@ -16,21 +16,34 @@ public class EnemySwordman : EnemyBase
     {
         base.Update();
 
+        CheckPlayer(1);
+
         if (!EnemyDie)
         {
             currentState.Execute();
         }
+
+        //Debug.Log("outside = " + EnemyOutsideEdge);
+        //Debug.Log("check target = " + EnemyTarget);
+        //Debug.Log("range = " + EnemyRangeAttack);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("PlayerSword"))
-        {
-            //Debug.Log("Take");
-            TakeDamage();
-            EnemyTarget = collision.gameObject;
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("PlayerSword"))
+    //    {
+    //        Debug.Log("Take");
+    //        TakeDamage();
+    //        EnemyTarget = collision.gameObject;
+    //    }
+
+    //    if (collision.CompareTag("Player"))
+    //    {
+    //        //Debug.Log("Take");
+    //        //TakeDamage();
+    //        EnemyTarget = collision.gameObject;
+    //    }
+    //}
 
     #region
     //private void Move()

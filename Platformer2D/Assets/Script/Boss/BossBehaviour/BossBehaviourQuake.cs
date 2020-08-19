@@ -20,7 +20,6 @@ public class BossBehaviourQuake : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.ResetTrigger("animatorBossQuake");
-        //animator.GetComponent<Boss>().timeQuake = animator.GetComponent<Boss>().delayAttack;
         animator.GetComponent<Boss>().BossCanRun = true;
     }
 

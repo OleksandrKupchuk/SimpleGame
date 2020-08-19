@@ -39,6 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6395271908679035640}
+  - component: {fileID: 2151615495556414799}
   m_Layer: 16
   m_Name: SwordmanEnemy
   m_TagString: Untagged
@@ -55,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 6395271908679035641}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children:
   - {fileID: 6399232536481373474}
   - {fileID: 6395271908719623356}
@@ -63,6 +64,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2151615495556414799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6395271908679035641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b826a2071663ff43a0e5cf93baf9f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6395271908719623357
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,6 +121,15 @@ PrefabInstance:
       propertyPath: rightEdge
       value: 
       objectReference: {fileID: 6395271907374179206}
+    - target: {fileID: 717898914, guid: 722924ec8a0056f4a8fb443b2fb65ff9, type: 3}
+      propertyPath: coinPrefab
+      value: 
+      objectReference: {fileID: 3203510900274205205, guid: b927dcc0c5f9e204fb9650592f5f9f52,
+        type: 3}
+    - target: {fileID: 717898914, guid: 722924ec8a0056f4a8fb443b2fb65ff9, type: 3}
+      propertyPath: parentObject
+      value: 
+      objectReference: {fileID: 2151615495556414799}
     - target: {fileID: 1000010208881502, guid: 722924ec8a0056f4a8fb443b2fb65ff9, type: 3}
       propertyPath: m_Name
       value: Rogue_01

@@ -55,10 +55,29 @@ public class GameManager : MonoBehaviour
             countCoinText.text = "Coin : " + countCoin;
         }
     }
-    // Start is called before the first frame update
+
+    //private void Awake()
+    //{
+    //    DontDestroyOnLoad(gameObject);
+
+    //    if (gameManagerInstance == null)
+    //    {
+    //        gameManagerInstance = FindObjectOfType<GameManager>();
+    //    }
+
+    //    else
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //}
+
     void Start()
     {
-        countCoinText = GameObject.Find("TextCoin").GetComponent<Text>();
+        countCoinText = GameObject.FindGameObjectWithTag("PanelUI").transform.GetChild(3).transform.GetChild(1).GetComponent<Text>();
+        InitializationCoin();
+
+        //Debug.Log(GameObject.Find("PanelUI").gameObject.name);
+        //Debug.Log(GameObject.Find("PanelUI").transform.GetChild(2).transform.GetChild(1).name);
     }
 
     // Update is called once per frame
@@ -66,5 +85,10 @@ public class GameManager : MonoBehaviour
     {
         //Debug.Log("coin = " + CountCoin);
         //Debug.Log("coin = " + countCoin);
+    }
+
+    public void InitializationCoin()
+    {
+        countCoinText.text = "Coin : " + countCoin;
     }
 }

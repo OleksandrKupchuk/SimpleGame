@@ -5,12 +5,27 @@ using UnityEngine.SceneManagement;
 
 public class LevelPass : MonoBehaviour
 {
+    [SerializeField] private ObjectdataLoad objectDataLoad;
+    [SerializeField] private MainMenu mainMenu;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //load next scene
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            //save data and load next scene
+            objectDataLoad.SavePlayer();
+            //yield return new WaitForSeconds(2f);
+            mainMenu.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            objectDataLoad.LoadPlayer();
         }
     }
+
+    //private IEnumerator NextLevel()
+    //{
+    //    objectDataLoad.SavePlayer();
+    //    //yield return new WaitForSeconds(2f);
+    //    mainMenu.NextLevel(SceneManager.GetActiveScene().buildIndex + 1);
+    //    objectDataLoad.LoadPlayer();
+    //    yield return null;
+    //}
 }

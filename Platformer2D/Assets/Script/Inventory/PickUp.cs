@@ -20,7 +20,7 @@ public class PickUp : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("name = " + gameObject.name);
+            //Debug.Log("name = " + gameObject.name);
             for (int numberFreeSlot = 0; numberFreeSlot < inventory.slots.Length; numberFreeSlot++)
             {
                 if (inventory.isFull[numberFreeSlot] == false)

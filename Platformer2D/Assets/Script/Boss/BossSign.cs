@@ -75,6 +75,11 @@ public class BossSign : MonoBehaviour
             {
                 boss.CanJump = false;
             }
+
+            else
+            {
+                boss.CanJump = true;
+            }
         }
 
         else

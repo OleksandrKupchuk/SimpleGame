@@ -6,6 +6,10 @@ public class Menu : MonoBehaviour
 {
     public static bool GameIsPause = false;
 
+    [Header("UI elements")]
+    [SerializeField] private GameObject[] uiObject;
+    public bool isEnableObject;
+
     public GameObject pauseMenuUI;
     // Start is called before the first frame update
     void Start()
@@ -18,29 +22,56 @@ public class Menu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GameIsPause)
+            if(!isEnableObject)
             {
-                Resume();
-            }
+                if (GameIsPause)
+                {
+                    Resume();
+                }
 
-            else 
-            {
-                Pause();
+                else
+                {
+                    Pause();
+                }
             }
         }
     }
 
-    void Resume()
+    public void Resume()
     {
+        
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
+
+        for (int i = 0; i < uiObject.Length; i++)
+        {
+            uiObject[i].SetActive(true);
+        }
+
         GameIsPause = false;
     }
 
-    void Pause()
+    public void Pause()
     {
+        for(int i = 0; i < uiObject.Length; i++)
+        {
+            uiObject[i].SetActive(false);
+        }
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPause = true;
+    }
+
+    public void EnableObject(int isEnable)
+    {
+        if(isEnable == 1)
+        {
+            isEnableObject = true;
+        }
+
+        else if (isEnable == 2)
+        {
+            isEnableObject = false;
+        }
     }
 }

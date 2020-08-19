@@ -5,41 +5,49 @@ using UnityEngine;
 public class IgnoreCollision : MonoBehaviour
 {
     [SerializeField] Collider2D enemySign;
+    [SerializeField] Collider2D circleCollider;
 
     Collider2D playerSwordCollider;
-    GameObject playerSword;
 
     Collider2D[] enemyColliders;
     [SerializeField] GameObject enemy;
 
     Collider2D[] playerColliders;
-    GameObject player;
+    GameObject playerObject;
 
     void Start()
     {
-        playerSword = GameObject.FindGameObjectWithTag("PlayerSword");
-        player = GameObject.FindGameObjectWithTag("Player");
+        playerObject = GameObject.FindGameObjectWithTag("Player");
 
-        playerSwordCollider = playerSword.GetComponent<EdgeCollider2D>();
+        playerSwordCollider = playerObject.transform.GetChild(0).GetComponent<EdgeCollider2D>();
 
         enemyColliders = enemy.GetComponents<Collider2D>();
 
-        playerColliders = player.GetComponents<Collider2D>();
+        playerColliders = playerObject.GetComponents<Collider2D>();
 
         Physics2D.IgnoreCollision(playerSwordCollider, enemySign, true);
-    }
+        Physics2D.IgnoreCollision(playerSwordCollider, circleCollider, true);
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
+        for (int countEnemyCollider = 0; countEnemyCollider < enemyColliders.Length; countEnemyCollider++)
         {
-            for (int countEnemyCollider = 0; countEnemyCollider < enemyColliders.Length; countEnemyCollider++)
+            for (int countPlayerCollider = 0; countPlayerCollider < playerColliders.Length; countPlayerCollider++)
             {
-                for (int countPlayerCollider = 0; countPlayerCollider < playerColliders.Length; countPlayerCollider++)
-                {
-                    Physics2D.IgnoreCollision(enemyColliders[countEnemyCollider], playerColliders[countPlayerCollider]);
-                }
+                Physics2D.IgnoreCollision(enemyColliders[countEnemyCollider], playerColliders[countPlayerCollider]);
             }
         }
     }
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Player"))
+    //    {
+    //        for (int countEnemyCollider = 0; countEnemyCollider < enemyColliders.Length; countEnemyCollider++)
+    //        {
+    //            for (int countPlayerCollider = 0; countPlayerCollider < playerColliders.Length; countPlayerCollider++)
+    //            {
+    //                Physics2D.IgnoreCollision(enemyColliders[countEnemyCollider], playerColliders[countPlayerCollider]);
+    //            }
+    //        }
+    //    }
+    //}
 }

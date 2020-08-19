@@ -6,7 +6,7 @@ using UnityEngine;
 
 public static class SaveSystem
 {
-    //public static void SavePlayer(Player player)
+    //public static void SavePlayer(Player player, GameManager gameManager)
     //{
     //    BinaryFormatter formatter = new BinaryFormatter();
 
@@ -14,14 +14,14 @@ public static class SaveSystem
 
     //    FileStream stream = new FileStream(pathSave, FileMode.Create);
 
-    //    PlayerData data = new PlayerData(player);
+    //    PlayerData data = new PlayerData(player, gameManager);
 
     //    formatter.Serialize(stream, data);
 
     //    stream.Close();
     //}
 
-    public static void SavePlayer(Player player, GameManager gameManager)
+    public static void SavePlayer(Player player, GameManager gameManager, ShopWindow shopWindow)
     {
         BinaryFormatter formatter = new BinaryFormatter();
 
@@ -29,7 +29,7 @@ public static class SaveSystem
 
         FileStream stream = new FileStream(pathSave, FileMode.Create);
 
-        PlayerData data = new PlayerData(player, gameManager);
+        PlayerData data = new PlayerData(player, gameManager, shopWindow);
 
         formatter.Serialize(stream, data);
 

@@ -5,16 +5,19 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
     public float axisY;
-    private float axisX;
-    public float targetX;
+    public float axisMinX;
+    public float axisMaxX;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("PlatformGround"))
         {
-            axisY = collision.gameObject.transform.position.y;
-            axisX = collision.gameObject.transform.position.x;
-            targetX = Random.Range(axisX - 2f, axisX + 2f);
+            axisY = collision.gameObject.GetComponent<PlatformCoordinates>().positionY;
+            axisMinX = collision.gameObject.GetComponent<PlatformCoordinates>().positionMinX;
+            axisMaxX = collision.gameObject.GetComponent<PlatformCoordinates>().positionMaxX;
+
+            //Debug.Log("xMin = " + axisMinX);
+            //Debug.Log("xMax = " + axisMaxX);
         }
     }
 }

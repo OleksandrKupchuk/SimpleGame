@@ -8,7 +8,7 @@ public class CheckCollider : MonoBehaviour
     public float distance;
     RaycastHit2D hitInfo;
     private GameObject player;
-    // Start is called before the first frame update
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -28,6 +28,7 @@ public class CheckCollider : MonoBehaviour
                 if (hitInfo.collider.CompareTag("Player"))
                 {
                     archer.EnemyTarget = player;
+                    
                 }
             }
             else

@@ -8,6 +8,7 @@ public class AnimatorPlayerJumpUpBehaviour : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Player.PlayerInstance.PlayerJump = true;
+        //SoundManager.soundManagerInstance.PlaySound("Player_Jump");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

@@ -13,10 +13,26 @@ public class BossBehaviourIdle : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        float time = (animator.GetComponent<Boss>().timeQuake -= Time.deltaTime);
-        if(time <= 0)
+        if (animator.GetComponent<BossSign>().hitInfoY.collider != null)
         {
-            animator.SetTrigger("animatorBossQuake");
+            if (animator.GetComponent<BossSign>().hitInfoY.collider.CompareTag("PlatformGround"))
+            {
+                float time = (animator.GetComponent<Boss>().timeQuake -= Time.deltaTime);
+                if (time <= 0)
+                {
+                    animator.SetTrigger("animatorBossQuake");
+                }
+            }
+        }
+
+        if (!animator.GetComponent<Boss>().IsGround())
+        {
+            animator.SetBool("isAir", true);
+        }
+
+        if (animator.GetComponent<Boss>().IsGround())
+        {
+            animator.SetBool("isAir", false);
         }
     }
 

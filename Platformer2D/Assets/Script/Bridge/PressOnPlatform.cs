@@ -16,6 +16,10 @@ public class PressOnPlatform : MonoBehaviour
     Vector2 preesPlatformCollider2DSize = new Vector2(0.16f, 0.1482385f);
     Vector2 preesPlatformCollider2DOffset = new Vector2(0f, -0.009211291f);
 
+    [SerializeField] private BoxCollider2D platformTrigger;
+    Vector2 defaultTriggerOffset = new Vector2(-0.0007943511f, 0.083f);
+    Vector2 pressTriggerOffset = new Vector2(-0.0007943511f, 0.064f);
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Box") || collision.gameObject.CompareTag("Player"))
@@ -60,11 +64,13 @@ public class PressOnPlatform : MonoBehaviour
     {
         platformBoxCollider2D.size = preesPlatformCollider2DSize;
         platformBoxCollider2D.offset = preesPlatformCollider2DOffset;
+        //platformTrigger.offset = pressTriggerOffset;
     }
 
     public void PlatformUp()
     {
         platformBoxCollider2D.size = defaultPlatformCollider2DSize;
         platformBoxCollider2D.offset = defaultPlatformCollider2DOffset;
+        //platformTrigger.offset = defaultTriggerOffset;
     }
 }

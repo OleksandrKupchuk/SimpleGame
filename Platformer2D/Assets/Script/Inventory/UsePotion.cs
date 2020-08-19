@@ -18,6 +18,7 @@ public class UsePotion : MonoBehaviour//, IPointerClickHandler
     public void UsePotionHealth(int health)
     {
         Debug.Log("Use");
+        SoundManager.soundManagerInstance.PlaySound("Potion_Use");
         Player.PlayerInstance.health += health;
         Destroy(gameObject);
     }

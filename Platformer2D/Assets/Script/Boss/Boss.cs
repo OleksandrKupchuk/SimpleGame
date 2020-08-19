@@ -7,16 +7,22 @@ public class Boss : CharacterBase
 {
     //[SerializeField] Rigidbody2D bossRigidbody;
     [Header("Boss Components")]
-    [SerializeField] Animator bossAnimator;
-    [SerializeField] BoxCollider2D bossBoxCollider;
+    [SerializeField] private Animator bossAnimator;
+    [SerializeField] private BoxCollider2D bossBoxCollider;
+    [SerializeField] private BossHit bossHit;
+    [SerializeField] private Collider2D colliderSword;
+    private GameObject playerObject;
+    private Player playerScript;
+    private Transform playerTransform;
+    private Collider2D[] playerCollider;
+
+    [Header("Sound")]
+    [SerializeField] private AudioSource audioHit;
+    [SerializeField] private AudioSource audioAttack;
+    [SerializeField] private AudioSource audioAttackLeg;
 
     [Header("Boss Image Health")]
     [SerializeField] Image imageHealth;
-
-    [Header("Player component")]
-    private GameObject player;
-    private Transform playerTransform;
-    private Collider2D[] playerCollider;
 
     [Header("Boss Parametrs")]
     [SerializeField] float jumpForce;
@@ -26,7 +32,7 @@ public class Boss : CharacterBase
     public float timeAttack;
     public float delayAttack;
     public float timeQuake;
-    //private int quakeHash = Animator.StringToHash("Quake");
+    public float delayJump;
 
     [HideInInspector] public float distanceY;
     [HideInInspector] [SerializeField] float distanceX;
@@ -35,11 +41,21 @@ public class Boss : CharacterBase
     public bool BossAttack { get; set; }
     public Rigidbody2D BossRigidbody { get; set; }
     public bool CanJump { get; set; }
+
+    public bool CanSpawnMeteor { get; set; }
     public bool IsFatigue { get; set; }
 
     public bool BossIsDead { get; set; }
 
     public bool BossCanRun { get; set; }
+
+    public bool IsFalling
+    {
+        get
+        {
+            return BossRigidbody.velocity.y < 0f;
+        }
+    }
 
     public float CurrentFillAmount
     {
@@ -49,31 +65,36 @@ public class Boss : CharacterBase
         }
     }
 
-    void Start()
+    public override void Start()
     {
         Physics2D.queriesStartInColliders = false;
         BossRigidbody = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        playerObject = GameObject.FindGameObjectWithTag("Player");
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        playerCollider = player.GetComponents<Collider2D>();
+        playerCollider = playerObject.GetComponents<Collider2D>();
+        playerScript = playerObject.GetComponent<Player>();
 
         imageHealth.fillAmount = CurrentFillAmount;
 
         BossCanRun = true;
+
+
 
         for (int countEnemyCollider = 0; countEnemyCollider < playerCollider.Length; countEnemyCollider++)
         {
             Physics2D.IgnoreCollision(bossBoxCollider, playerCollider[countEnemyCollider]);
         }
 
-        //Debug.Log("hash quake = " + quakeHash);
+        //Debug.Log("jump? = " + CanJump);
     }
 
     void Update()
     {
-        distanceX = transform.position.x - player.transform.position.x;
-        distanceY = Mathf.Abs(transform.position.y - player.transform.position.y);
+        distanceX = transform.position.x - playerObject.transform.position.x;
+        distanceY = Mathf.Abs(transform.position.y - playerObject.transform.position.y);
         //Debug.Log("distance " + distance);
+
+        //Debug.Log("falling = " + BossRigidbody.velocity.y);
 
         ResetAnimation();
 
@@ -109,7 +130,7 @@ public class Boss : CharacterBase
 
     public void Flip()
     {
-        if (!IsFatigue)
+        if (!IsFatigue && IsGround())
         {
             facingRight = !facingRight;
             transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
@@ -136,7 +157,7 @@ public class Boss : CharacterBase
 
     private IEnumerator IdleState()
     {
-        Debug.Log("Idle");
+        //Debug.Log("Idle");
 
         bossAnimator.SetFloat("animatorBossRun", -1);
 
@@ -145,7 +166,7 @@ public class Boss : CharacterBase
 
     private IEnumerator RunState()
     {
-        Debug.Log("Run");
+        //Debug.Log("Run");
         if(!BossAttack && IsGround() && !IsFatigue && BossCanRun)
         {
             Walk();
@@ -156,9 +177,9 @@ public class Boss : CharacterBase
 
     private IEnumerator RangeState()
     {
-        Debug.Log("Range");
+        //Debug.Log("Range");
 
-        if (Mathf.Abs(distanceX) < attackRangeX && distanceY < 2.4f)
+        if (Mathf.Abs(distanceX) < attackRangeX && distanceY < 2.4f && !playerScript.PlayerDie)
         {
             StartCoroutine(AttackState());
         }
@@ -168,7 +189,7 @@ public class Boss : CharacterBase
             StartCoroutine(JumpState());
         }
 
-        if(Mathf.Abs(distanceX) < attackRangeX && distanceY > 2.4f && !CanJump)
+        if(Mathf.Abs(distanceX) < attackRangeX && distanceY > 2.4f && !CanJump || Mathf.Abs(distanceX) < attackRangeX && distanceY > 2.4f && IsGround())
         {
             StartCoroutine(IdleState());
         }
@@ -211,11 +232,11 @@ public class Boss : CharacterBase
 
     public void Jump()
     {
-        if (!BossAttack && IsGround() && CanJump && !IsFatigue)
+        if (!BossAttack && IsGround() && CanJump && !IsFatigue && delayJump <= 0)
         {
-            Debug.Log("Jump");
+            //Debug.Log("Jump");
+            bossAnimator.SetBool("Jump", true);
             BossRigidbody.velocity = Vector2.up * jumpForce;
-            bossAnimator.SetTrigger("animatorBossJump");
         }
     }
 
@@ -266,11 +287,21 @@ public class Boss : CharacterBase
         {
             health -= damage;
 
+            bossHit.EnableWhiteHit();
+
+            audioHit.Play();
+
             imageHealth.fillAmount = CurrentFillAmount;
 
             if (health <= 0)
             {
+                Invoke("Disable", 0.1f);
                 bossAnimator.SetTrigger("animatorBossDie");
+            }
+
+            else
+            {
+                Invoke("Disable", 0.1f);
             }
         }
     }
@@ -281,8 +312,37 @@ public class Boss : CharacterBase
         {
             if (collision.gameObject.CompareTag("PlayerSword"))
             {
-                TakeDamage(player.GetComponent<Player>().damage);
+                TakeDamage(playerObject.GetComponent<Player>().damage);
             }
         }
+    }
+
+    public void BossCanSpawnMeteor()
+    {
+        audioAttackLeg.Play();
+        CanSpawnMeteor = true;
+    }
+
+    private void Disable()
+    {
+        bossHit.DisableWhiteHit();
+    }
+
+    public void EnableColliderSword(int amount)
+    {
+        if(amount == 1)
+        {
+            colliderSword.enabled = true;
+        }
+
+        if(amount == 2)
+        {
+            colliderSword.enabled = false;
+        }
+    }
+
+    public void SoundBossAttack()
+    {
+        audioAttack.Play();
     }
 }

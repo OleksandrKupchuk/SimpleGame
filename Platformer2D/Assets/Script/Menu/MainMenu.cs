@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] private Player player;
     public GameObject loadingScreen;
     public Slider slider;
     public Text textProgress;
@@ -17,10 +18,18 @@ public class MainMenu : MonoBehaviour
         //SceneManager.LoadScene(indexScene);
     }
 
-    //public void LoadGame(int sceneIndex)
-    //{
-    //    StartCoroutine(LoadAsynchronously(sceneIndex));
-    //}
+    public void LoadGame()
+    {
+        StartCoroutine(LoadAsynchronously(player.indexScene));
+        Debug.Log("scene index = " + player.indexScene);
+        Time.timeScale = 1;
+    }
+
+    public void LoadScene(int index)
+    {
+        StartCoroutine(LoadAsynchronously(index));
+        Time.timeScale = 1;
+    }
 
     IEnumerator LoadAsynchronously(int sceneIndex)
     {

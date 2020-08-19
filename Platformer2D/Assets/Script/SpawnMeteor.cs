@@ -7,14 +7,15 @@ public class SpawnMeteor : MonoBehaviour
     [Header("Parametrs")]
     [SerializeField] private float minSpawn;
     [SerializeField] private float maxSpawn;
-    [SerializeField] private GameObject meteorPrefab;
+    [SerializeField] private GameObject[] meteorPrefab;
     [SerializeField] private int minQuantityMeteors;
     [SerializeField] private int maxQuantityMeteors;
+    private Boss boss;
     private Transform spawn;
     // Start is called before the first frame update
     void Start()
     {
-        
+        boss = GameObject.FindObjectOfType<Boss>();
     }
 
     // Update is called once per frame
@@ -26,13 +27,22 @@ public class SpawnMeteor : MonoBehaviour
             
             //Debug.Log("N N N N");
         }
+
+        if (boss.CanSpawnMeteor)
+        {
+            StartCoroutine(MeteorSpawn());
+
+            //Debug.Log("N N N N");
+        }
     }
 
     private IEnumerator Spawn()
     {
         float range = Random.Range(minSpawn, maxSpawn);
 
-        GameObject meteor = Instantiate(meteorPrefab);
+        int meteorInt = Random.Range(0, 2);
+
+        GameObject meteor = Instantiate(meteorPrefab[meteorInt]);
 
         meteor.transform.position = new Vector3(range, transform.position.y);
 
@@ -41,6 +51,8 @@ public class SpawnMeteor : MonoBehaviour
 
     private IEnumerator MeteorSpawn()
     {
+        boss.CanSpawnMeteor = false;
+
         int range = Random.Range(minQuantityMeteors, maxQuantityMeteors);
         for (int i = 0; i < range; i++)
         {

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1687999912}
   - component: {fileID: 1687999913}
-  - component: {fileID: 6928956236131309076}
   m_Layer: 16
   m_Name: Sign
   m_TagString: Untagged
@@ -45,7 +44,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 9.10232, y: 4.2000704}
+  m_Offset: {x: -0.32613766, y: 4.2000704}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -56,21 +55,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 25.065907, y: 6.7611103}
+  m_Size: {x: 6.20899, y: 6.7611103}
   m_EdgeRadius: 0
---- !u!114 &6928956236131309076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1687999911}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9004219bc0bf6e4285a2b04332db520, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemySwordman: {fileID: 717898914}
 --- !u!1 &1000010042067156
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,7 +202,7 @@ Transform:
   m_GameObject: {fileID: 1000010208881502}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -4.8, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000011226073324}
   - {fileID: 1687999912}
@@ -261,13 +247,21 @@ MonoBehaviour:
   damage: 4
   speed: 3
   facingRight: 0
+  combatText: {fileID: 8332889537254168813, guid: 969e1a643cb957143bf720040bb5c70d,
+    type: 3}
+  combatTextPosition: 1.7
   imageHealthBar: {fileID: 752511666415369650}
   gameObjectHealthBar: {fileID: 8307053076209141948}
   coinPrefab: {fileID: 3203510900274205205, guid: 792cb7e55c29a204fad1b6f37d2b8f60,
     type: 3}
   delayAttack: 0.5
+  firstAttack: 0
   enemyRangeAttack: 1.5
   experienceForTheEnemy: 2
+  distance: 10
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 3981079
   leftEdge: {fileID: 0}
   rightEdge: {fileID: 0}
   enemySword: {fileID: 2961335894259124018}
@@ -400,6 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySign: {fileID: 1687999913}
+  circleCollider: {fileID: 6005750597600984098}
   enemy: {fileID: 1000010208881502}
 --- !u!1 &1000010251440012
 GameObject:
