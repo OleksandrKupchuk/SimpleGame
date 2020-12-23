@@ -18,6 +18,7 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < slots.Length; i++)
         {
             GameObject slot = Instantiate(emptySlot, new Vector3(disX, 0f, 0f), Quaternion.identity);
+            slot.GetComponent<Slot>().slotId = i;
             Transform childCanvas = canvas.transform.GetChild(0);
             slot.transform.SetParent(childCanvas.transform, false);
             

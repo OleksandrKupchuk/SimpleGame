@@ -85,6 +85,10 @@ EdgeCollider2D:
   - {x: 1.715806, y: -0.78347445}
   - {x: 1.6134701, y: -1.0137446}
   - {x: 0.29209948, y: -0.8529221}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &5984063916931141361
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,6 +145,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -188,24 +193,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d2c4ab59a0b354cac62f6395c735df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  maxHealth: 150
-  damage: 5
-  speed: 5
+  health: 24
+  maxHealth: 24
+  damage: 8
+  speed: 6
   facingRight: 1
-  invenroryUI: {fileID: 0}
+  data: {fileID: 807208258228918326, guid: 94264352d3196cc45a8346bfb4da5600, type: 3}
   shieldPrefab: {fileID: 3171879319365543291, guid: a2728f4343f969a47bda519d1ee2867d,
     type: 3}
   shieldPointStart: {fileID: 1362683983}
   sourceDamage: {fileID: 11400000, guid: b7b24c1d23fd1824da3acf789b50d0b1, type: 2}
   indexScene: 0
   shieldDie: 0
-  playerCurrentLevel: 1
+  playerCurrentLevel: 3
   playerDelayBlink: 1
   playerCurrentExperience: 0
   interestExperienceForNextLevel: 0
   interestHealthForNextLevel: 0
-  maxExperienceInCurrentLevel: 10
+  playerMaxExperienceInCurrentLevel: 14
+  interestHealth: 10
   takeExperience: 17
   playerAirControl: 1
   playerSwordCollider: {fileID: 5984063916075243771}

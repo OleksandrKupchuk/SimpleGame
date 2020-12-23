@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Slot : MonoBehaviour
 {
-    public int slotIsFull;
+    public int slotId;
 
     public void DropItems()
     {

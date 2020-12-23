@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8df15d6a6715304c8b1b03e5e7bb497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countCoinText: {fileID: 0}
   coinPrefab: {fileID: 3203510900274205205, guid: 792cb7e55c29a204fad1b6f37d2b8f60,
     type: 3}
+  saveCoin: {fileID: 11400000, guid: b3da300d15708f245a659c92831d182e, type: 2}
+  countCoin: 0

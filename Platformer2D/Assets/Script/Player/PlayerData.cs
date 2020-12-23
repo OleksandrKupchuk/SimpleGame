@@ -8,6 +8,7 @@ public class PlayerData
     public float playerHealth;
     public float playerMaxHealth;
     public int playerExperience;
+    public int playerMaxExperience;
     public int playerLevel;
     public int playerCoin;
     public int indexCurrentScene;
@@ -19,26 +20,13 @@ public class PlayerData
     public int shopWindowSpeed;
     public int shopWindowJump;
 
-    //public PlayerData(Player player, GameManager gameManager)
-    //{
-    //    indexCurrentScene = player.indexScene;
-    //    playerHealth = player.health;
-    //    playerMaxHealth = player.PlayerMaxHealth;
-    //    playerExperience = player.PlayerCurrentExperience;
-    //    playerLevel = player.playerCurrentLevel;
-    //    playerDamage = player.damage;
-    //    playerSpeed = player.speed;
-    //    playerJump = player.jumpForce;
-
-    //    playerCoin = gameManager.countCoin;
-    //}
-
     public PlayerData(Player player, GameManager gameManager, ShopWindow shopWindow)
     {
         indexCurrentScene = player.indexScene;
         playerHealth = player.health;
         playerMaxHealth = player.PlayerMaxHealth;
         playerExperience = player.PlayerCurrentExperience;
+        playerMaxExperience = player.PlayerMaxExperienceInCurrentLevel;
         playerLevel = player.playerCurrentLevel;
         playerDamage = player.damage;
         playerSpeed = player.speed;

@@ -19,7 +19,7 @@ public class PlayerBarScript : MonoBehaviour
     void Start()
     {
         textPlayer.text = "Health : " + Player.PlayerInstance.Health;
-        textExperience.text = Player.PlayerInstance.PlayerCurrentExperience + " : " + Player.PlayerInstance.MaxExperienceInCurrentLevel;
+        textExperience.text = Player.PlayerInstance.PlayerCurrentExperience + " : " + Player.PlayerInstance.PlayerMaxExperienceInCurrentLevel;
         textPlayerLevel.text = "LVL : " + Player.PlayerInstance.playerCurrentLevel;
     }
 
@@ -29,7 +29,7 @@ public class PlayerBarScript : MonoBehaviour
         textPlayer.text = "Health : " + Player.PlayerInstance.Health;
         imageHealth.fillAmount = CurrentFillAmountHealth();
 
-        textExperience.text = Player.PlayerInstance.PlayerCurrentExperience + " : " + Player.PlayerInstance.MaxExperienceInCurrentLevel;
+        textExperience.text = Player.PlayerInstance.PlayerCurrentExperience + " : " + Player.PlayerInstance.PlayerMaxExperienceInCurrentLevel;
         imageExperience.fillAmount = CurrentFillAmountExperience();
 
         textPlayerLevel.text = Player.PlayerInstance.playerCurrentLevel + "";
@@ -42,6 +42,6 @@ public class PlayerBarScript : MonoBehaviour
 
     private float CurrentFillAmountExperience()
     {
-        return currentFillAmountExperience = (float)Player.PlayerInstance.PlayerCurrentExperience / (float)Player.PlayerInstance.MaxExperienceInCurrentLevel;
+        return currentFillAmountExperience = (float)Player.PlayerInstance.PlayerCurrentExperience / (float)Player.PlayerInstance.PlayerMaxExperienceInCurrentLevel;
     }
 }

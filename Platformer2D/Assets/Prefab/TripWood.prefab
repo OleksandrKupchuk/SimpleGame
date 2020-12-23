@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3410853013703944953}
   - component: {fileID: 329668914315537424}
   - component: {fileID: 168063643111888239}
+  - component: {fileID: 868347789}
+  - component: {fileID: 1102870788235320834}
   m_Layer: 0
   m_Name: TripWood
   m_TagString: Trip
@@ -112,3 +114,30 @@ EdgeCollider2D:
   - {x: 0.478899, y: 0.016410828}
   - {x: 0.46937466, y: -0.2197051}
   - {x: 0.24917316, y: -0.49713516}
+--- !u!114 &868347789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6271453390743759991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65b1f9d086f71a94798ebb0c4cb915df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 4
+--- !u!114 &1102870788235320834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6271453390743759991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4606ae7315751c42a2718e239180430, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 168063643111888239}
+  childCollider: 1

@@ -9,12 +9,14 @@ public class Menu : MonoBehaviour
     [Header("UI elements")]
     [SerializeField] private GameObject[] uiObject;
     public bool isEnableObject;
+    private GameObject shopWindow;
 
     public GameObject pauseMenuUI;
     // Start is called before the first frame update
     void Start()
     {
-        
+        shopWindow = GameObject.FindGameObjectWithTag("Shop").transform.GetChild(0).gameObject;
+        //Debug.Log(shopWindow.name);
     }
 
     // Update is called once per frame
@@ -22,19 +24,24 @@ public class Menu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if(!isEnableObject)
+            if (!isEnableObject)
             {
-                if (GameIsPause)
+                if (!IsActiveShop())
                 {
-                    Resume();
-                }
+                    if (GameIsPause)
+                    {
+                        Resume();
+                    }
 
-                else
-                {
-                    Pause();
+                    else
+                    {
+                        Pause();
+                    }
                 }
             }
         }
+
+        //Debug.Log(IsActiveShop());
     }
 
     public void Resume()
@@ -73,5 +80,30 @@ public class Menu : MonoBehaviour
         {
             isEnableObject = false;
         }
+    }
+
+    private bool IsActiveShop()
+    {
+        //if (shopWindow.gameObject != null)
+        //{
+        //    if (shopWindow.activeInHierarchy == false)
+        //    {
+        //        return false;
+        //    }
+
+        //    return true;
+        //}
+
+        if (shopWindow.activeInHierarchy == false)
+        {
+            return false;
+        }
+
+        return true;
+        //else
+        //{
+        //    Debug.LogWarning("Object not found");
+        //    return false;
+        //}
     }
 }

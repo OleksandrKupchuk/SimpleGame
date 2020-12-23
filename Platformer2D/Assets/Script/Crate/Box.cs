@@ -10,15 +10,15 @@ public class Box : MonoBehaviour
     [SerializeField] LayerMask layerMask;
     [SerializeField] public bool isGround;
     public int massBox;
+    private Vector2 startPosition;
 
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (collision.CompareTag("PressPlatform"))
-    //    {
-    //        Debug.Log("massBox = " + massBox);
-    //        collision.gameObject.GetComponent<PressOnPlatform>().massItems += massBox;
-    //    }
-    //}
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Water"))
+        {
+            transform.position = startPosition;
+        }
+    }
 
     //private void OnTriggerExit2D(Collider2D collision)
     //{
@@ -32,6 +32,7 @@ public class Box : MonoBehaviour
     private void Start()
     {
         massBox = (int)boxRigidbody2D.mass;
+        startPosition = new Vector2(transform.position.x, transform.position.y);
     }
 
     //private void Update()

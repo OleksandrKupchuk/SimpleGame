@@ -5,12 +5,14 @@ using TMPro;
 
 public class PriceAbility : MonoBehaviour
 {
-    public int price;
+    [SerializeField] ShopWindow shopWindow;
     private TextMeshProUGUI textPrice;
+    public int price;
    
     void Start()
     {
         textPrice = GetComponent<TextMeshProUGUI>();
+
         InitializationText();
     }
 

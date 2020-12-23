@@ -6,21 +6,6 @@ using UnityEngine;
 
 public static class SaveSystem
 {
-    //public static void SavePlayer(Player player, GameManager gameManager)
-    //{
-    //    BinaryFormatter formatter = new BinaryFormatter();
-
-    //    string pathSave = Application.persistentDataPath + "/player.date";
-
-    //    FileStream stream = new FileStream(pathSave, FileMode.Create);
-
-    //    PlayerData data = new PlayerData(player, gameManager);
-
-    //    formatter.Serialize(stream, data);
-
-    //    stream.Close();
-    //}
-
     public static void SavePlayer(Player player, GameManager gameManager, ShopWindow shopWindow)
     {
         BinaryFormatter formatter = new BinaryFormatter();

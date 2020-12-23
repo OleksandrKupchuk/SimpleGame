@@ -23,6 +23,7 @@ TagManager:
   - Water
   - PanelUI
   - Shop
+  - LevelPass
   layers:
   - Default
   - TransparentFX

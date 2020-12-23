@@ -49,3 +49,7 @@ MonoBehaviour:
     type: 3}
   shopWindow: {fileID: 419347802772972699, guid: 664aa904d2a951b4a89a833b619b8ccb,
     type: 3}
+  objectLoad: {fileID: 807208258228918326, guid: 94264352d3196cc45a8346bfb4da5600,
+    type: 3}
+  sceneIndex: 0
+  playerData: {fileID: 11400000, guid: 1a89aedf3ca82cb4ab12d3f136dea8eb, type: 2}

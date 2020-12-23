@@ -7,25 +7,29 @@ public class LevelPass : MonoBehaviour
 {
     [SerializeField] private ObjectdataLoad objectDataLoad;
     [SerializeField] private MainMenu mainMenu;
+    private Player playerScript;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //save data and load next scene
-            objectDataLoad.SavePlayer();
-            //yield return new WaitForSeconds(2f);
-            mainMenu.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            objectDataLoad.LoadPlayer();
+            SavePlayerData();
+            RunLevel();
         }
     }
 
-    //private IEnumerator NextLevel()
-    //{
-    //    objectDataLoad.SavePlayer();
-    //    //yield return new WaitForSeconds(2f);
-    //    mainMenu.NextLevel(SceneManager.GetActiveScene().buildIndex + 1);
-    //    objectDataLoad.LoadPlayer();
-    //    yield return null;
-    //}
+    private void SavePlayerData()
+    {
+        objectDataLoad.SavePlayer();
+    }
+
+    public void RunLevel()
+    {
+        Invoke("NextLevel", 0.5f);
+    }
+
+    private void NextLevel()
+    {
+        mainMenu.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 }

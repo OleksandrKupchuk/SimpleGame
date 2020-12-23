@@ -73,4 +73,9 @@ public class PressOnPlatform : MonoBehaviour
         platformBoxCollider2D.offset = defaultPlatformCollider2DOffset;
         //platformTrigger.offset = defaultTriggerOffset;
     }
+
+    public void PlatformPush()
+    {
+        SoundManager.soundManagerInstance.PlaySound("Platform_Push");
+    }
 }

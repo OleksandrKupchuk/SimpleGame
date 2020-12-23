@@ -9,12 +9,13 @@ using UnityEngine.EventSystems;
 public class Player : CharacterBase
 {
     private IUsable usable;
+    [SerializeField] private ObjectdataLoad data;
 
     [Header("Player Components")]
-    [SerializeField] InventoryUI invenroryUI;
     [SerializeField] GameObject shieldPrefab;
     [SerializeField] Transform shieldPointStart;
     [SerializeField] private SourceDamage sourceDamage;
+    private GameObject pauseMenu;
 
     [Header("Player parametrs")]
     public int indexScene;
@@ -32,18 +33,18 @@ public class Player : CharacterBase
         get => playerCurrentExperience; set => playerCurrentExperience = value;
     }
 
-    [SerializeField] int maxExperienceInCurrentLevel;
+    [SerializeField] int playerMaxExperienceInCurrentLevel;
 
-    public int MaxExperienceInCurrentLevel
+    public int PlayerMaxExperienceInCurrentLevel
     {
-        get => maxExperienceInCurrentLevel; set => maxExperienceInCurrentLevel = value;
+        get => playerMaxExperienceInCurrentLevel; set => playerMaxExperienceInCurrentLevel = value;
     }
 
     public int InterestExperienceForNextLevel 
     { 
         get
         {
-            interestExperienceForNextLevel = (maxExperienceInCurrentLevel * interestExperienceForNextLevel) / 100;
+            interestExperienceForNextLevel = (playerMaxExperienceInCurrentLevel * interestExperienceForNextLevel) / 100;
 
             if (playerCurrentLevel <= 5)
             {
@@ -65,11 +66,13 @@ public class Player : CharacterBase
         }
     }
 
+    [SerializeField] private int interestHealth;
+
     public int InterestHealthForNextLevel
     {
         get
         {
-            interestHealthForNextLevel = ((int)maxHealth * interestHealthForNextLevel) / 100;
+            interestHealthForNextLevel = ((int)maxHealth * interestHealth) / 100;
 
             if (interestHealthForNextLevel < 2)
             {
@@ -101,29 +104,28 @@ public class Player : CharacterBase
     {
         get
         {
-            if(health <= 0)
+            return health;
+        }
+
+        set
+        {
+            health = value;
+
+            if (health <= 0)
             {
                 health = 0;
             }
 
-            else if(health >= PlayerMaxHealth)
+            if (health >= PlayerMaxHealth)
             {
                 health = PlayerMaxHealth;
             }
-
-            return health;
-        }
-
-        private set
-        {
-            value = health;
         }
     }
         
     public bool PlayerJump { get; set; }
     private float bufferingJumpPressRemember;
     [SerializeField] private float bufferingJumpPressRememberTime;
-
 
     static Player playerInstance;
 
@@ -172,6 +174,9 @@ public class Player : CharacterBase
 
     public override void Start()
     {
+        pauseMenu = GameObject.FindGameObjectWithTag("Canvas").transform.GetChild(3).transform.GetChild(0).gameObject;
+        data.LoadPlayer();
+
         PlayerAnimator = GetComponent<Animator>();
         PlayerRigidbody = GetComponent<Rigidbody2D>();
 
@@ -182,23 +187,13 @@ public class Player : CharacterBase
     {
         if (!PlayerDie && !PlayerHit)
         {
-            PlayerHandleInput();
-
-            //PlayerMovement(horizontal);
+            if (pauseMenu.activeSelf == false)
+            {
+                PlayerHandleInput();
+            }
         }
 
         bufferingJumpPressRemember -= Time.deltaTime;
-
-        //Debug.Log("horiz = " + Player.PlayerInstance.Horizontal);
-        //Debug.Log("ground = " + PlayerOnGround);
-        //Debug.Log("ground = " + playerOnGround);
-        //Debug.Log("numberContact = " + numberContactsWithGround);
-        //Debug.Log("Right = " + facingRight);
-        //Debug.Log("Block = " + PlayerBlock);
-        //Debug.Log("is falling = " + IsFalling);
-        //Debug.Log("rigidbody = " + PlayerRigidbody.velocity.y);
-        //Debug.Log("onGround = " + Player.PlayerInstance.PlayerOnGround);
-        //Debug.Log("Jump = " + PlayerInstance.PlayerJump);
     }
 
     private void FixedUpdate()
@@ -236,8 +231,6 @@ public class Player : CharacterBase
 
             PlayerMovement(horizontal);
 
-            //PlayerHandleInput();
-
             Flip(horizontal);
 
             PlayerOnGround = playerOnGround;
@@ -250,8 +243,8 @@ public class Player : CharacterBase
     {
         if (IsFalling)
         {
-            //gameObject.layer = 8;
             PlayerAnimator.SetBool("animatorPlayerJumpDown", true);
+            PlayerRigidbody.gravityScale = 5;
         }
 
         if (!PlayerAttack && !PlayerBlock && (PlayerOnGround || playerAirControl))
@@ -278,6 +271,7 @@ public class Player : CharacterBase
 
         if (PlayerOnGround)
         {
+            PlayerRigidbody.gravityScale = 2;
             PlayerAnimator.SetFloat("animatorPlayerWalk", Mathf.Abs(phorizontal));
         }
 
@@ -309,7 +303,7 @@ public class Player : CharacterBase
             {
                 //TakeDamage();
                 Debug.Log("shok");
-                //AddIndicatorForPlayer(takeExperience);
+                AddIndicatorForPlayer(10);
 
                 PlayerAnimator.SetBool("animatorPlayerShield", true);
                 SpawnShield();
@@ -325,27 +319,18 @@ public class Player : CharacterBase
             }
         }
 
-        if (Input.GetButtonDown("Fire1") && PlayerOnGround)//&& !invenroryUI.IsElemtntUI
+        if (Input.GetButtonDown("Fire1") && PlayerOnGround)
         {
-            //Debug.Log("1");
             if (!EventSystem.current.IsPointerOverGameObject())
             {
                 PlayerAnimator.SetTrigger("animatorPlayerAttack");
-                //Debug.Log("2");
             }
-
-            else
-            {
-                //Debug.Log("1");
-            }
-            //PlayerAnimator.SetTrigger("animatorPlayerAttack");
         }
 
         if (Input.GetButtonDown("Jump"))
         {
             bufferingJumpPressRemember = bufferingJumpPressRememberTime;
             PlayerAnimator.SetTrigger("animatorPlayerJumpUp");
-            //Jump();
         }
     }
 
@@ -359,7 +344,6 @@ public class Player : CharacterBase
     private void Jump()
     {
         SoundManager.soundManagerInstance.PlaySound("Player_Jump");
-        //PlayerRigidbody.AddForce(new Vector2(0, jumpForce));
         PlayerRigidbody.velocity = Vector2.up * jumpForce;
     }
 
@@ -370,7 +354,6 @@ public class Player : CharacterBase
         if(facingRight && fhorizontal < 0 || !facingRight && fhorizontal > 0)
         {
             facingRight = !facingRight;
-            //transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
             transform.Rotate(0f, 180f, 0f);
         }
     }
@@ -399,14 +382,14 @@ public class Player : CharacterBase
                 PlayerAnimator.SetTrigger("animatorPlayerTakeDamage");
                 PlayerBlink = true;
 
-                health -= damage;
+                Health -= damage;
 
                 StartCoroutine(PlayerBlinkMethod());
                 yield return new WaitForSeconds(playerDelayBlink);
 
                 PlayerBlink = false;
 
-                if (health <= 0)
+                if (Health <= 0)
                 {
                     StartCoroutine(GameOver());
                 }
@@ -416,6 +399,7 @@ public class Player : CharacterBase
 
     private IEnumerator GameOver()
     {
+        PlayerDie = true;
         PlayerAnimator.SetTrigger("animatorPlayerDie");
 
         PlayerRigidbody.gravityScale = 0;
@@ -448,6 +432,7 @@ public class Player : CharacterBase
     {
         if (collision.gameObject.CompareTag("Coin"))
         {
+            //Debug.Log("Coin");
             GameManager.GameManagerInstance.CountCoin++;
             SoundManager.soundManagerInstance.PlaySound("PlayerPickUpCoin");
             Destroy(collision.gameObject);
@@ -481,13 +466,6 @@ public class Player : CharacterBase
         if (collision.gameObject.CompareTag("Chest"))
         {
             usable = collision.GetComponent<IUsable>();
-        }
-
-        if (collision.gameObject.CompareTag("Coin"))
-        {
-            GameManager.GameManagerInstance.CountCoin++;
-            SoundManager.soundManagerInstance.PlaySound("PlayerPickUpCoin");
-            Destroy(collision.gameObject);
         }
     }
 
@@ -533,14 +511,14 @@ public class Player : CharacterBase
     {
         PlayerCurrentExperience += experience;
 
-        if(PlayerCurrentExperience >= MaxExperienceInCurrentLevel)
+        if(PlayerCurrentExperience >= PlayerMaxExperienceInCurrentLevel)
         {
-            int countUpLevel = (PlayerCurrentExperience / MaxExperienceInCurrentLevel);
+            int countUpLevel = (PlayerCurrentExperience / PlayerMaxExperienceInCurrentLevel);
             for(int countLevel = 0; countLevel < countUpLevel; countLevel++)
             {
-                PlayerCurrentExperience = Mathf.Abs(PlayerCurrentExperience - MaxExperienceInCurrentLevel);
+                PlayerCurrentExperience = Mathf.Abs(PlayerCurrentExperience - PlayerMaxExperienceInCurrentLevel);
 
-                MaxExperienceInCurrentLevel += InterestExperienceForNextLevel; ////add maxexperience on current level on a certain percentage
+                PlayerMaxExperienceInCurrentLevel += InterestExperienceForNextLevel; ////add maxexperience on current level on a certain percentage
 
                 PlayerLevelUp();
 

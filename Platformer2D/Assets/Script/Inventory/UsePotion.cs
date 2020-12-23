@@ -5,9 +5,12 @@ using UnityEngine.EventSystems;
 
 public class UsePotion : MonoBehaviour//, IPointerClickHandler
 {
+    private Inventory Inventory;
+    private Slot slot;
     void Start()
     {
-        
+        Inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+        slot = transform.GetComponentInParent<Slot>();
     }
 
     void Update()
@@ -19,7 +22,8 @@ public class UsePotion : MonoBehaviour//, IPointerClickHandler
     {
         Debug.Log("Use");
         SoundManager.soundManagerInstance.PlaySound("Potion_Use");
-        Player.PlayerInstance.health += health;
+        Player.PlayerInstance.Health += health;
+        Inventory.isFull[slot.slotId] = false;
         Destroy(gameObject);
     }
 

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5766586403507211633}
   m_Layer: 0
   m_Name: LevelPass
-  m_TagString: Untagged
+  m_TagString: LevelPass
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,3 +72,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectDataLoad: {fileID: 807208258228918326, guid: 94264352d3196cc45a8346bfb4da5600,
     type: 3}
+  mainMenu: {fileID: 0}
+  playerData: {fileID: 11400000, guid: 1a89aedf3ca82cb4ab12d3f136dea8eb, type: 2}

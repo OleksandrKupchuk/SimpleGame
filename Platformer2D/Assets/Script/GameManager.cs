@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     static GameManager gameManagerInstance;
-
-    //[SerializeField] GameObject gameObjectCanvas;
     private Text countCoinText;
 
     public static GameManager GameManagerInstance
@@ -27,18 +25,6 @@ public class GameManager : MonoBehaviour
             return gameManagerInstance;
         }
     }
-
-    [SerializeField] GameObject coinPrefab;
-
-    public GameObject Coin
-    {
-        get
-        {
-            return coinPrefab;
-        }
-    }
-
-    //public int CountCoin { get => countCoin; set => countCoin = value; }
 
     public int countCoin;
 
@@ -74,21 +60,17 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         countCoinText = GameObject.FindGameObjectWithTag("PanelUI").transform.GetChild(3).transform.GetChild(1).GetComponent<Text>();
-        InitializationCoin();
-
-        //Debug.Log(GameObject.Find("PanelUI").gameObject.name);
-        //Debug.Log(GameObject.Find("PanelUI").transform.GetChild(2).transform.GetChild(1).name);
+        countCoinText.text = "Coin : " + countCoin;
+        //SetCoin();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //Debug.Log("coin = " + CountCoin);
-        //Debug.Log("coin = " + countCoin);
+        
     }
 
     public void InitializationCoin()
     {
-        countCoinText.text = "Coin : " + countCoin;
+        countCoin = 0;
     }
 }

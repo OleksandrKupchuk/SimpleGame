@@ -11,6 +11,7 @@ public class Boss : CharacterBase
     [SerializeField] private BoxCollider2D bossBoxCollider;
     [SerializeField] private BossHit bossHit;
     [SerializeField] private Collider2D colliderSword;
+    [SerializeField] private GameObject windowWin;
     private GameObject playerObject;
     private Player playerScript;
     private Transform playerTransform;
@@ -100,6 +101,7 @@ public class Boss : CharacterBase
 
         if (!BossIsDead)
         {
+            
             StateMachine();
 
             EnemyLookTarget();
@@ -144,7 +146,7 @@ public class Boss : CharacterBase
 
     private void StateMachine()
     {
-        if(Mathf.Abs(distanceX) > attackRangeX)
+        if(Mathf.Abs(distanceX) > attackRangeX && !Player.PlayerInstance.PlayerDie)
         {
             StartCoroutine(RunState());
         }
@@ -344,5 +346,11 @@ public class Boss : CharacterBase
     public void SoundBossAttack()
     {
         audioAttack.Play();
+    }
+
+    public void ShowWindowWin()
+    {
+        Time.timeScale = 0;
+        windowWin.SetActive(true);
     }
 }

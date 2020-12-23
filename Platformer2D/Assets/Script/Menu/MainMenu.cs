@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
     public GameObject loadingScreen;
     public Slider slider;
     public Text textProgress;
+    [SerializeField] private GameObject windowError;
 
     public void StartGame(int sceneIndex)
     {
@@ -20,9 +21,17 @@ public class MainMenu : MonoBehaviour
 
     public void LoadGame()
     {
-        StartCoroutine(LoadAsynchronously(player.indexScene));
-        Debug.Log("scene index = " + player.indexScene);
-        Time.timeScale = 1;
+        if(player.indexScene != 0)
+        {
+            StartCoroutine(LoadAsynchronously(player.indexScene));
+            Debug.Log("scene index = " + player.indexScene);
+            Time.timeScale = 1;
+        }
+
+        else
+        {
+            windowError.SetActive(true);
+        }
     }
 
     public void LoadScene(int index)

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 523504117018871297}
   - component: {fileID: -5609023696034518680}
   - component: {fileID: -4833228511889959880}
+  - component: {fileID: 7396160963650911607}
   m_Layer: 0
   m_Name: Saw
   m_TagString: Trip
@@ -150,3 +151,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 6
+--- !u!114 &7396160963650911607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6774864240588358276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4606ae7315751c42a2718e239180430, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 2905526634778850665}
+  childCollider: 1

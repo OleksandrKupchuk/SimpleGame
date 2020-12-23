@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class ShopWindow : MonoBehaviour
 {
@@ -40,33 +41,44 @@ public class ShopWindow : MonoBehaviour
     public TextMeshProUGUI speedPlayer;
     public TextMeshProUGUI jumpPlayer;
 
+    [Header("Window error")]
+    [SerializeField] private GameObject windowError;
+
+    [SerializeField] private GameObject windowObject;
+    private Transform window;
     private Transform coinObject;
     private Transform abilityObject;
 
     void Start()
     {
-        coinObject = transform.GetChild(7).transform;
-        abilityObject = transform.GetChild(4).transform;
-        //InitializationPrice();
+        //if (MainMenu.isNewGame == true)
+        //{
+        //    InitializationPrice();
+        //}
+
+        window = transform.GetChild(0).transform;
+        coinObject = window.transform.GetChild(7).transform;
+        abilityObject = window.transform.GetChild(4).transform;
     }
 
     void Update()
     {
-
+        if(windowObject.activeSelf == true)
+        {
+            SetPrice();
+        }
     }
 
     public void AddAmountAbility(int number)
     {
+        //GameObject button = window.transform.GetChild(2).transform.GetChild(number).gameObject;
         int price = coinObject.transform.GetChild(1).transform.GetChild(number).gameObject.GetComponent<PriceAbility>().price;
 
         int amountAbility = abilityObject.GetChild(number).GetComponent<AmountAbility>().amount;
 
-        if (GameManager.GameManagerInstance.countCoin >= price)
+        if (GameManager.GameManagerInstance.CountCoin >= price)
         {
-            GameManager.GameManagerInstance.countCoin -= price;
-
-            //Debug.Log("amount = " + amount);
-            //Debug.Log("player = " + GameManager.GameManagerInstance.countCoin);
+            GameManager.GameManagerInstance.CountCoin -= price;
 
             if (number == 0)
             {
@@ -85,21 +97,19 @@ public class ShopWindow : MonoBehaviour
                 Player.PlayerInstance.jumpForce += amountAbility;
                 priceJump += costJump;
             }
+
+            SoundManager.soundManagerInstance.PlaySound("Buy_Ability");
         }
 
         else
         {
+            windowError.SetActive(true);
             Debug.Log("Недостатньо коштів");
         }
 
-        InitializationPrice();
+        SetPrice();
         InitializationPlayerParametrs();
-        GameManager.GameManagerInstance.InitializationCoin();
-    }
-
-    public void Text(int number)
-    {
-
+        //GameManager.GameManagerInstance.SetCoin();
     }
 
     public void InitializationPlayerParametrs()
@@ -109,7 +119,7 @@ public class ShopWindow : MonoBehaviour
         jumpPlayer.text = "" + Player.PlayerInstance.jumpForce;
     }
 
-    public void InitializationPrice()
+    public void SetPrice()
     {
         coinObject.transform.GetChild(1).transform.GetChild(0).gameObject.GetComponent<PriceAbility>().price = priceDamage;
         coinObject.transform.GetChild(1).transform.GetChild(0).gameObject.GetComponent<PriceAbility>().InitializationText();
@@ -117,5 +127,12 @@ public class ShopWindow : MonoBehaviour
         coinObject.transform.GetChild(1).transform.GetChild(1).gameObject.GetComponent<PriceAbility>().InitializationText();
         coinObject.transform.GetChild(1).transform.GetChild(2).gameObject.GetComponent<PriceAbility>().price = priceJump;
         coinObject.transform.GetChild(1).transform.GetChild(2).gameObject.GetComponent<PriceAbility>().InitializationText();
+    }
+
+    public void InitializationPrice()
+    {
+        priceDamage = 10;
+        priceSpeed = 9;
+        priceJump = 12;
     }
 }

@@ -128,3 +128,24 @@ MonoBehaviour:
     loopSound: 0
     playOnAwakeSound: 0
     audioSource: {fileID: 0}
+  - nameAudio: Buy_Ability
+    clip: {fileID: 8300000, guid: ec7e616d2224bf84bb45590bcbe4a591, type: 3}
+    volumeAudio: 1
+    pitchAudio: 1
+    loopSound: 0
+    playOnAwakeSound: 0
+    audioSource: {fileID: 0}
+  - nameAudio: Platform_Push
+    clip: {fileID: 8300000, guid: 620c1c9228965e54fab6539dfdbc83a7, type: 3}
+    volumeAudio: 1
+    pitchAudio: 1
+    loopSound: 0
+    playOnAwakeSound: 0
+    audioSource: {fileID: 0}
+  - nameAudio: Platform_Up
+    clip: {fileID: 8300000, guid: bddf21bdbd5712e41bd203bb5359fcdc, type: 3}
+    volumeAudio: 1
+    pitchAudio: 1
+    loopSound: 0
+    playOnAwakeSound: 0
+    audioSource: {fileID: 0}
