@@ -99,9 +99,9 @@ public class SawTrap : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (!Player.PlayerInstance.PlayerBlink)
+            if (!Player.Instance.PlayerBlink)
             {
-                StartCoroutine(Player.PlayerInstance.TakeDamage(damageObject.damage));
+                StartCoroutine(Player.Instance.TakeDamage(damageObject.damage));
             }
         }
     }

@@ -11,9 +11,9 @@ public class PlayerBlockBeahaviour : StateMachineBehaviour
 
         animator.GetComponent<Player>().shieldDie = false;
 
-        if (Player.PlayerInstance.PlayerOnGround)
+        if (Player.Instance.PlayerOnGround)
         {
-            Player.PlayerInstance.PlayerRigidbody.velocity = Vector2.zero;
+            Player.Instance.PlayerRigidbody.velocity = Vector2.zero;
         }
     }
 

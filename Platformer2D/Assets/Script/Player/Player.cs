@@ -98,9 +98,7 @@ public class Player : CharacterBase
 
     public bool PlayerHit { get; set; }
 
-    public float PlayerMaxHealth { get => maxHealth; set => maxHealth = value; }
-
-    public float Health
+    public float PlayerHealth
     {
         get
         {
@@ -116,9 +114,9 @@ public class Player : CharacterBase
                 health = 0;
             }
 
-            if (health >= PlayerMaxHealth)
+            if (health >= maxHealth)
             {
-                health = PlayerMaxHealth;
+                health = maxHealth;
             }
         }
     }
@@ -137,7 +135,7 @@ public class Player : CharacterBase
         }
     }
 
-    public static Player PlayerInstance
+    public static Player Instance
     {
         get
         {
@@ -156,8 +154,6 @@ public class Player : CharacterBase
     }
 
     private float horizontal;
-
-    public float Horizontal { get => horizontal;}
 
     public Animator PlayerAnimator { get; set; }
 
@@ -382,14 +378,14 @@ public class Player : CharacterBase
                 PlayerAnimator.SetTrigger("animatorPlayerTakeDamage");
                 PlayerBlink = true;
 
-                Health -= damage;
+                PlayerHealth -= damage;
 
                 StartCoroutine(PlayerBlinkMethod());
                 yield return new WaitForSeconds(playerDelayBlink);
 
                 PlayerBlink = false;
 
-                if (Health <= 0)
+                if (PlayerHealth <= 0)
                 {
                     StartCoroutine(GameOver());
                 }
@@ -433,7 +429,8 @@ public class Player : CharacterBase
         if (collision.gameObject.CompareTag("Coin"))
         {
             //Debug.Log("Coin");
-            GameManager.GameManagerInstance.CountCoin++;
+            GameManager.Instance.countCoin++;
+            GameManager.Instance.UpdateCoinText();
             SoundManager.soundManagerInstance.PlaySound("PlayerPickUpCoin");
             Destroy(collision.gameObject);
         }

@@ -12,9 +12,9 @@ public class AnimatorPlayerAttackBehaviour : StateMachineBehaviour
 
         SoundManager.soundManagerInstance.PlaySound("Player_Attack");
 
-        if (Player.PlayerInstance.PlayerOnGround)
+        if (Player.Instance.PlayerOnGround)
         {
-            Player.PlayerInstance.PlayerRigidbody.velocity = Vector2.zero;
+            Player.Instance.PlayerRigidbody.velocity = Vector2.zero;
         }
 
         //if (animator.CompareTag("Player"))

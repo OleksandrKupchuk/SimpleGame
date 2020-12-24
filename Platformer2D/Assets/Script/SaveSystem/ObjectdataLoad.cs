@@ -11,7 +11,7 @@ public class ObjectdataLoad : MonoBehaviour
 
     public void SavePlayer()
     {
-        SaveSystem.SavePlayer(Player.PlayerInstance, GameManager.GameManagerInstance, ShopWindow.Instance);
+        SaveSystem.SavePlayer(Player.Instance, GameManager.Instance, ShopWindow.Instance);
 
         Debug.Log("Save");
     }
@@ -22,8 +22,8 @@ public class ObjectdataLoad : MonoBehaviour
         {
             PlayerData data = SaveSystem.LoadPlayer();
 
-            player.health = data.playerHealth;
-            player.PlayerMaxHealth = data.playerMaxHealth;
+            player.PlayerHealth = data.playerHealth;
+            player.maxHealth = data.playerMaxHealth;
             player.PlayerCurrentExperience = data.playerExperience;
             player.PlayerMaxExperienceInCurrentLevel = data.playerMaxExperience;
             player.playerCurrentLevel = data.playerLevel;
@@ -48,8 +48,8 @@ public class ObjectdataLoad : MonoBehaviour
 
     public void DefaultPlayerData()
     {
-        player.health = 20;
-        player.PlayerMaxHealth = 20;
+        player.PlayerHealth = 20;
+        player.maxHealth = 20;
         player.PlayerCurrentExperience = 0;
         player.PlayerMaxExperienceInCurrentLevel = 10;
         player.playerCurrentLevel = 1;

@@ -23,8 +23,8 @@ public class PlayerData
     public PlayerData(Player player, GameManager gameManager, ShopWindow shopWindow)
     {
         indexCurrentScene = player.indexScene;
-        playerHealth = player.health;
-        playerMaxHealth = player.PlayerMaxHealth;
+        playerHealth = player.PlayerHealth;
+        playerMaxHealth = player.maxHealth;
         playerExperience = player.PlayerCurrentExperience;
         playerMaxExperience = player.PlayerMaxExperienceInCurrentLevel;
         playerLevel = player.playerCurrentLevel;

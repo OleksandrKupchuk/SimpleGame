@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     static GameManager gameManagerInstance;
     private Text countCoinText;
 
-    public static GameManager GameManagerInstance
+    public static GameManager Instance
     {
         get
         {
@@ -28,45 +28,15 @@ public class GameManager : MonoBehaviour
 
     public int countCoin;
 
-    public int CountCoin
-    {
-        get
-        {
-            return countCoin;
-        }
-
-        set
-        {
-            countCoin = value;
-            countCoinText.text = "Coin : " + countCoin;
-        }
-    }
-
-    //private void Awake()
-    //{
-    //    DontDestroyOnLoad(gameObject);
-
-    //    if (gameManagerInstance == null)
-    //    {
-    //        gameManagerInstance = FindObjectOfType<GameManager>();
-    //    }
-
-    //    else
-    //    {
-    //        Destroy(gameObject);
-    //    }
-    //}
-
     void Start()
     {
         countCoinText = GameObject.FindGameObjectWithTag("PanelUI").transform.GetChild(3).transform.GetChild(1).GetComponent<Text>();
         countCoinText.text = "Coin : " + countCoin;
-        //SetCoin();
     }
 
-    void Update()
+    public void UpdateCoinText()
     {
-        
+        countCoinText.text = "Coin : " + countCoin;
     }
 
     public void InitializationCoin()

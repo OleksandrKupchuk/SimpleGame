@@ -193,10 +193,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d2c4ab59a0b354cac62f6395c735df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 24
-  maxHealth: 24
+  health: 20
+  maxHealth: 20
   damage: 8
-  speed: 6
+  speed: 7
   facingRight: 1
   data: {fileID: 807208258228918326, guid: 94264352d3196cc45a8346bfb4da5600, type: 3}
   shieldPrefab: {fileID: 3171879319365543291, guid: a2728f4343f969a47bda519d1ee2867d,
@@ -205,12 +205,12 @@ MonoBehaviour:
   sourceDamage: {fileID: 11400000, guid: b7b24c1d23fd1824da3acf789b50d0b1, type: 2}
   indexScene: 0
   shieldDie: 0
-  playerCurrentLevel: 3
+  playerCurrentLevel: 1
   playerDelayBlink: 1
-  playerCurrentExperience: 0
+  playerCurrentExperience: 2
   interestExperienceForNextLevel: 0
   interestHealthForNextLevel: 0
-  playerMaxExperienceInCurrentLevel: 14
+  playerMaxExperienceInCurrentLevel: 10
   interestHealth: 10
   takeExperience: 17
   playerAirControl: 1

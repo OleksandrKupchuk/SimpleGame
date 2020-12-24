@@ -51,11 +51,6 @@ public class ShopWindow : MonoBehaviour
 
     void Start()
     {
-        //if (MainMenu.isNewGame == true)
-        //{
-        //    InitializationPrice();
-        //}
-
         window = transform.GetChild(0).transform;
         coinObject = window.transform.GetChild(7).transform;
         abilityObject = window.transform.GetChild(4).transform;
@@ -71,33 +66,34 @@ public class ShopWindow : MonoBehaviour
 
     public void AddAmountAbility(int number)
     {
-        //GameObject button = window.transform.GetChild(2).transform.GetChild(number).gameObject;
         int price = coinObject.transform.GetChild(1).transform.GetChild(number).gameObject.GetComponent<PriceAbility>().price;
 
         int amountAbility = abilityObject.GetChild(number).GetComponent<AmountAbility>().amount;
 
-        if (GameManager.GameManagerInstance.CountCoin >= price)
+        if (GameManager.Instance.countCoin >= price)
         {
-            GameManager.GameManagerInstance.CountCoin -= price;
+            Debug.Log("coin = " + GameManager.Instance.countCoin);
+            GameManager.Instance.countCoin -= price;
 
             if (number == 0)
             {
-                Player.PlayerInstance.damage += amountAbility;
+                Player.Instance.damage += amountAbility;
                 priceDamage += costDamage;
             }
 
             if (number == 1)
             {
-                Player.PlayerInstance.speed += amountAbility;
+                Player.Instance.speed += amountAbility;
                 priceSpeed += costSpeed;
             }
 
             if (number == 2)
             {
-                Player.PlayerInstance.jumpForce += amountAbility;
+                Player.Instance.jumpForce += amountAbility;
                 priceJump += costJump;
             }
 
+            GameManager.Instance.UpdateCoinText();
             SoundManager.soundManagerInstance.PlaySound("Buy_Ability");
         }
 
@@ -109,14 +105,13 @@ public class ShopWindow : MonoBehaviour
 
         SetPrice();
         InitializationPlayerParametrs();
-        //GameManager.GameManagerInstance.SetCoin();
     }
 
     public void InitializationPlayerParametrs()
     {
-        damagePlayer.text = "" + Player.PlayerInstance.damage;
-        speedPlayer.text = "" + Player.PlayerInstance.speed;
-        jumpPlayer.text = "" + Player.PlayerInstance.jumpForce;
+        damagePlayer.text = "" + Player.Instance.damage;
+        speedPlayer.text = "" + Player.Instance.speed;
+        jumpPlayer.text = "" + Player.Instance.jumpForce;
     }
 
     public void SetPrice()

@@ -19,7 +19,7 @@ public class RangeState : IStateEnemy
 
     public void Execute()
     {
-        if(Player.PlayerInstance.transform.position.x < enemySwordmanRange.transform.position.x - 0.5f || Player.PlayerInstance.transform.position.x > enemySwordmanRange.transform.position.x + 0.5f)
+        if(Player.Instance.transform.position.x < enemySwordmanRange.transform.position.x - 0.5f || Player.Instance.transform.position.x > enemySwordmanRange.transform.position.x + 0.5f)
         {
             //Debug.Log("pos player" + Player.PlayerInstance.transform.position.x);
             //Debug.Log("pos enemy" + enemySwordmanRange.transform.position.x);

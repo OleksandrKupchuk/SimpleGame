@@ -8,10 +8,10 @@ public class AnimatorEnemyTakeDamageBehaviour : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         SoundManager.soundManagerInstance.PlaySound("PlayerHit");
-        Player.PlayerInstance.PlayerHit = true;
-        if (Player.PlayerInstance.PlayerHit)
+        Player.Instance.PlayerHit = true;
+        if (Player.Instance.PlayerHit)
         {
-            Player.PlayerInstance.PlayerRigidbody.velocity = Vector2.zero;
+            Player.Instance.PlayerRigidbody.velocity = Vector2.zero;
         }
     }
 
@@ -24,8 +24,8 @@ public class AnimatorEnemyTakeDamageBehaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Player.PlayerInstance.PlayerAnimator.ResetTrigger("animatorPlayerTakeDamage");
-        Player.PlayerInstance.PlayerHit = false;
+        Player.Instance.PlayerAnimator.ResetTrigger("animatorPlayerTakeDamage");
+        Player.Instance.PlayerHit = false;
         SoundManager.soundManagerInstance.StopPlaySound("PlayerHit");
     }
 

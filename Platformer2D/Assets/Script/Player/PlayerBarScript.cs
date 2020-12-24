@@ -7,41 +7,39 @@ public class PlayerBarScript : MonoBehaviour
 {
     [SerializeField] Image imageHealth;
     [SerializeField] Text textPlayer;
-    [SerializeField] private float currentFillAmountHealth;
+    private float currentFillAmountHealth;
 
     [SerializeField] Image imageExperience;
     [SerializeField] Text textExperience;
-    [SerializeField] private float currentFillAmountExperience;
+    private float currentFillAmountExperience;
 
     [SerializeField] Text textPlayerLevel;
 
-    // Start is called before the first frame update
     void Start()
     {
-        textPlayer.text = "Health : " + Player.PlayerInstance.Health;
-        textExperience.text = Player.PlayerInstance.PlayerCurrentExperience + " : " + Player.PlayerInstance.PlayerMaxExperienceInCurrentLevel;
-        textPlayerLevel.text = "LVL : " + Player.PlayerInstance.playerCurrentLevel;
+        textPlayer.text = "Health : " + Player.Instance.PlayerHealth;
+        textExperience.text = Player.Instance.PlayerCurrentExperience + " : " + Player.Instance.PlayerMaxExperienceInCurrentLevel;
+        textPlayerLevel.text = "LVL : " + Player.Instance.playerCurrentLevel;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        textPlayer.text = "Health : " + Player.PlayerInstance.Health;
+        textPlayer.text = "Health : " + Player.Instance.PlayerHealth;
         imageHealth.fillAmount = CurrentFillAmountHealth();
 
-        textExperience.text = Player.PlayerInstance.PlayerCurrentExperience + " : " + Player.PlayerInstance.PlayerMaxExperienceInCurrentLevel;
+        textExperience.text = Player.Instance.PlayerCurrentExperience + " : " + Player.Instance.PlayerMaxExperienceInCurrentLevel;
         imageExperience.fillAmount = CurrentFillAmountExperience();
 
-        textPlayerLevel.text = Player.PlayerInstance.playerCurrentLevel + "";
+        textPlayerLevel.text = Player.Instance.playerCurrentLevel + "";
     }
 
     private float CurrentFillAmountHealth()
     {
-        return currentFillAmountHealth = (Player.PlayerInstance.Health / Player.PlayerInstance.PlayerMaxHealth);
+        return currentFillAmountHealth = (Player.Instance.PlayerHealth / Player.Instance.maxHealth);
     }
 
     private float CurrentFillAmountExperience()
     {
-        return currentFillAmountExperience = (float)Player.PlayerInstance.PlayerCurrentExperience / (float)Player.PlayerInstance.PlayerMaxExperienceInCurrentLevel;
+        return currentFillAmountExperience = (float)Player.Instance.PlayerCurrentExperience / (float)Player.Instance.PlayerMaxExperienceInCurrentLevel;
     }
 }

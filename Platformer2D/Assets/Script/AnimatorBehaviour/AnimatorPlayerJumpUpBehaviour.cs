@@ -7,7 +7,7 @@ public class AnimatorPlayerJumpUpBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Player.PlayerInstance.PlayerJump = true;
+        Player.Instance.PlayerJump = true;
         //SoundManager.soundManagerInstance.PlaySound("Player_Jump");
     }
 
@@ -24,7 +24,7 @@ public class AnimatorPlayerJumpUpBehaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Player.PlayerInstance.PlayerJump = false;
+        Player.Instance.PlayerJump = false;
         animator.ResetTrigger("animatorPlayerJumpUp");
     }
 

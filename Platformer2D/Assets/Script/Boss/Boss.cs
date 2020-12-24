@@ -146,7 +146,7 @@ public class Boss : CharacterBase
 
     private void StateMachine()
     {
-        if(Mathf.Abs(distanceX) > attackRangeX && !Player.PlayerInstance.PlayerDie)
+        if(Mathf.Abs(distanceX) > attackRangeX && !Player.Instance.PlayerDie)
         {
             StartCoroutine(RunState());
         }

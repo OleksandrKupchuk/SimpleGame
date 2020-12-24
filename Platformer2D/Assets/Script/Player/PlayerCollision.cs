@@ -15,9 +15,6 @@ public class PlayerCollision : MonoBehaviour
             axisY = collision.gameObject.GetComponent<PlatformCoordinates>().positionY;
             axisMinX = collision.gameObject.GetComponent<PlatformCoordinates>().positionMinX;
             axisMaxX = collision.gameObject.GetComponent<PlatformCoordinates>().positionMaxX;
-
-            //Debug.Log("xMin = " + axisMinX);
-            //Debug.Log("xMax = " + axisMaxX);
         }
     }
 }

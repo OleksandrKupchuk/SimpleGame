@@ -159,7 +159,7 @@ public class EnemyBase : CharacterBase
     {
         gameObject.layer = 23;
         enemyAnimator.SetTrigger("animatorEnemyDie");
-        Player.PlayerInstance.AddIndicatorForPlayer(experienceForTheEnemy);
+        Player.Instance.AddIndicatorForPlayer(experienceForTheEnemy);
 
         Debug.Log("die");
         SpawnItems();
@@ -371,7 +371,7 @@ public class EnemyBase : CharacterBase
                 Debug.Log("Take");
                 SoundManager.soundManagerInstance.PlaySound("Enemy_Hit");
                 enemyAnimator.ResetTrigger("animatorEnemyAttack");
-                TakeDamage(Player.PlayerInstance.damage);
+                TakeDamage(Player.Instance.damage);
                 EnemyTarget = collision.gameObject;
                 EnemyLookTarget();
             }

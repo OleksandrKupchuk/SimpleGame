@@ -22,7 +22,7 @@ public class UsePotion : MonoBehaviour//, IPointerClickHandler
     {
         Debug.Log("Use");
         SoundManager.soundManagerInstance.PlaySound("Potion_Use");
-        Player.PlayerInstance.Health += health;
+        Player.Instance.PlayerHealth += health;
         Inventory.isFull[slot.slotId] = false;
         Destroy(gameObject);
     }

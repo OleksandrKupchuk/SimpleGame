@@ -22,12 +22,12 @@ public class Spawn : MonoBehaviour
     {
         Vector2 playerPositions;
 
-        if (Player.PlayerInstance.facingRight)
+        if (Player.Instance.facingRight)
         {
             playerPositions = new Vector2(player.position.x + 1f, player.position.y - 0.7f);
             Instantiate(item, playerPositions, Quaternion.identity);
         }
-        if (!Player.PlayerInstance.facingRight)
+        if (!Player.Instance.facingRight)
         {
             playerPositions = new Vector2(player.position.x - 1f, player.position.y - 0.7f);
             Instantiate(item, playerPositions, Quaternion.identity);
